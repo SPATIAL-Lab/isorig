@@ -104,11 +104,6 @@ rescale <- function(orig, precip, mask = NULL, interpMethod = 2) {
     }
   }
 
-  # d2h residuals from lab test. Data is given by Mike Wunder Analytical
-  # calibration residuals. They are described in Wunder and Norris
-  # (2008). They were collected from 150 different runs, each of which
-  # had between 2-5 replicates of two different standards.
-  data("d2h.resids")
 
   if (class(orig) == "character") {
     if (substr(orig, nchar(orig) - 3, nchar(orig)) == ".csv") {
@@ -150,6 +145,8 @@ rescale <- function(orig, precip, mask = NULL, interpMethod = 2) {
   # create two blank vector for storing the isotope of tissue and precip
   tissue.iso <- vector("numeric", length = nSample)
   precip.iso <- vector("numeric", length = nSample)
+  # create a blank vector for storing the location where precip does  not have value
+  null.iso <- NULL
 
   # create a raster that has similar length with raster obtained from
   # prediction_i.txt NOTE that the raster obtained from prediction_i.txt
@@ -162,12 +159,10 @@ rescale <- function(orig, precip, mask = NULL, interpMethod = 2) {
   }
   ncells <- ncell(prediction)
 
-  # random pick lab uncertainties
-  iso.resids.nSample <- sample(d2h.resids, nSample)
 
   # assgin tissue and precipitation isotopic values to the positions of
   # know origin sites
-  tissue.iso <- as.numeric(calibration[, 3]) + iso.resids.nSample
+  tissue.iso <- as.numeric(calibration[, 3])
   if (interpMethod == 1) {
     precip.iso <- raster::extract(prediction, calibration[, 1:2], method = "simple")
   } else if (interpMethod == 2) {
@@ -175,6 +170,8 @@ rescale <- function(orig, precip, mask = NULL, interpMethod = 2) {
   } else {
     stop("interpMethod should be either 1 or 2")
   }
+
+
 
   # linear regression between known origin and precipitation data
   lmResult <- lm(tissue.iso ~ precip.iso)
