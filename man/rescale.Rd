@@ -26,6 +26,12 @@ values from precipitation raster based on know origin position. If 1 values
 for the cell a point fall s in are returned. If 2 (default) the returned values are
 interpolated from the values of the four nearest raster cells.
 }
+\item{NA.value}{
+ (NA [default] or numeric) what is the value for no data in isoscape raster map, could be NA, -9999, 9999, etc. If you are not sure about it, you can read the raster in R and run \code{\link[raster]{click}}(raster) to click the place without value.
+}
+\item{ignore.NA}{
+ (T or F [default]) If NA value are extracted at location of known origin, do you want to ignore these value and proceed with rescale function?
+}
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
