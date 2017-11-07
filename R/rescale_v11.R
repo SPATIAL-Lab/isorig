@@ -39,29 +39,7 @@
 #+++++++++++++++++++++++++#
 
 
-# This function conducts simulated regressions between tissue.iso and
-# precip.iso. tissue.iso is resampled from known origin data + lab measuring
-# uncertainty; precip.iso is from random precip map based on mean and SD. The
-# output contains rescaled precipitaiton model with mean and SD. Function
-# includes:
-#
-# 1. orig: known origin. Two senarios: (1)If user provided, this should be a filename (with directory, if applicable) of known origin.
-#   It should be as a csv file with 3 columns: 1st is longitude, 2nd is latitude, 3rd is tissue isotope value.
-#   The first row should be header of "Longitude", "Latitude", "d2H".
-#   If you have a shape file, you should select these 3 attributions and save it as a csv file with format mentioned above.
-#   (2) known origin data provided by this pacakge. This should be output from function: subOrigData, with format of data.frame
-# 2. precip: raster of isoscape
-# 3. mask  : a SpatialPolygonsDataFrame that is used to constrain the investigated area. If this is not provided, default of whole world is used.
-# 4. interpMethod = numeric. 1 or 2. This is method for extracting
-# values from precipitation raster based on know origin position. If 1 values
-# for the cell a point falls in are returned. If 2 (default) the returned values are
-# bilinear interpolated from the values of the four nearest raster cells.
-# 5. NA.value: (NA or numeric) what is the value for no data in isoscape raster map, could be NA, -9999, 9999, etc.
-#   If you are not sure about it, you can read the raster in R and run "click(raster)" to click the place without value.
-# 6. ignore.NA: (T or F, default if F)If NA value are extracted at location of known origin, do you want to ignore these value and proceed with rescale function?
-
-
-rescale <- function(orig, precip, mask = NULL, interpMethod = 2, NA.value = NA, ignore.NA = F) {
+rescale <- function(orig, precip, mask = NULL, interpMethod = 2, NA.value = NA, ignore.NA = T) {
   # load libraries
   if (require("raster")) {
     print("raster is loaded correctly")
@@ -119,53 +97,30 @@ rescale <- function(orig, precip, mask = NULL, interpMethod = 2, NA.value = NA, 
     }
   }
 
-
-  if (class(orig) == "character") {
-    if (substr(orig, nchar(orig) - 3, nchar(orig)) == ".csv") {
-      dat <- read.table(orig, nrows = 1, colClasses = "character",
-                        sep = ",")
-      # titles = is.na(suppressWarnings(as.numeric(dat[1, 1])))
-      if (!is.na(suppressWarnings(as.numeric(dat[1, 1])))) {
-        cat("\\n * No column titles/headers detected in known origin csv file\\n")
-        calibration <- read.table(orig, header = F, sep = ",")
-      }
-      if (is.na(suppressWarnings(as.numeric(dat[1, 1])))) {
-        cat("\\n * Column titles/headers detected in known origin csv file\\n")
-        calibration <- read.table(orig, header = T, sep = ",")
-      }
-    }
-  }
-
-
-  if (class(orig) == "data.frame") {
-    cat("known origin data is provided by isorig package \n")
-    calibration <- orig[, 2:4]
+  if (class(orig) != "data.frame") {
+    stop("orig should be a data.frame, see help page of rescale function")
   }
 
   # apply mask if provided
   if (!is.null(mask)) {
     if (class(mask) == "SpatialPolygonsDataFrame") {
 
-      s <- SpatialPointsDataFrame(coords = calibration[,1:2],
-                                                  data = calibration, proj4string = CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
+      s <- SpatialPointsDataFrame(coords = orig[,1:2],
+                                                  data = orig, proj4string = CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
       o <- over(s, mask)
 
-      calibration <- calibration[!is.na(o), ]
+      orig <- orig[!is.na(o), ]
     } else {
       stop("mask should be a SpatialPolygonsDataFrame")
     }
   }
 
-  nSample <- nrow(calibration)
+  nSample <- nrow(orig)
   # create two blank vector for storing the isotope of tissue and precip
   tissue.iso <- vector("numeric", length = nSample)
   precip.iso <- vector("numeric", length = nSample)
   # create a blank vector for storing the location where precip does  not have value
   null.iso <- NULL
-
-  # create a raster that has similar length with raster obtained from
-  # prediction_i.txt NOTE that the raster obtained from prediction_i.txt
-  # using following method has less cells than raster from IsoMAP...
 
   if (class(precip) == "RasterLayer") {
     prediction <- precip
@@ -174,19 +129,18 @@ rescale <- function(orig, precip, mask = NULL, interpMethod = 2, NA.value = NA, 
   }
   ncells <- ncell(prediction)
 
-
   # assgin tissue and precipitation isotopic values to the positions of
   # know origin sites
-  temp <- apply(calibration,2,class)
+  temp <- apply(orig,2,class)
   if (any(temp!="numeric")){
     stop("orig data should be all numeric. Please check that except header, orig table should only contains numbers.")
   }
 
-  tissue.iso <- as.numeric(calibration[, 3])
+  tissue.iso <- as.numeric(orig[, 3])
   if (interpMethod == 1) {
-    precip.iso <- raster::extract(prediction, calibration[, 1:2], method = "simple")
+    precip.iso <- raster::extract(prediction, orig[, 1:2], method = "simple")
   } else if (interpMethod == 2) {
-    precip.iso <- raster::extract(prediction, calibration[, 1:2], method = "bilinear")
+    precip.iso <- raster::extract(prediction, orig[, 1:2], method = "bilinear")
   } else {
     stop("interpMethod should be either 1 or 2")
   }
@@ -195,16 +149,14 @@ rescale <- function(orig, precip, mask = NULL, interpMethod = 2, NA.value = NA, 
   if (!is.na(NA.value)){
     values(precip)[values(precip)==NA.value] <- NA
   }
-  na <- NULL
-  na <- which(is.na(precip.iso))
-  if (!is.na(na)){
-    cat("Warning: NO data are found at following locations:")
-    print(calibration[na,1:2])
+  if (any(is.na(precip.iso))){
+    na <- which(is.na(precip.iso))
+    cat("\n\n----------------------------------------------------------------\n")
+    cat("Warning: NO data are found at following locations:\n")
+    print(orig[na,1:2])
     if (!ignore.NA){
-    stop ("Delete these data in known origin data or use a different isoscape that has values at these locations")
+      stop ("Delete these data in known origin data or use a different isoscape that has values at these locations")
     }
-  }
-  if (!is.null(na)){
     precip.iso <- precip.iso[-na]
     tissue.iso <- tissue.iso[-na]
   }
@@ -248,8 +200,8 @@ rescale <- function(orig, precip, mask = NULL, interpMethod = 2, NA.value = NA, 
   # calculate mean and sd of rescaled raster, sd of rescaled raster is
   # the error of estimation from the linear regression above.
   sd <- precip
-  values(sd) <- summary(lmResult)$sigma  #Same sd is assigned to each cell.
-  values(sd)[is.na(values(precip))] <- NA
+  values(sd) <- summary(lmResult)$sigma  # Same sd is assigned to each cell.
+  values(sd)[is.na(values(precip))] <- NA # replace all no data with NA
   precip.rescale <- stack(precip.rescale, sd)
   names(precip.rescale) <- c("mean", "sd")
   if (!is.null(mask)) {

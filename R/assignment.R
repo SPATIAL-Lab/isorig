@@ -45,11 +45,8 @@ assignment <- function(rescaled_raster, unknown, mask = NULL, genplot=T) {
     }
   }
   error <- rescaled_raster$sd
-  if (class(unknown) == "character") {
-    if (substr(unknown, nchar(unknown) - 3, nchar(unknown)) != ".csv") {
-      stop("Please use .csv file for unknown. Details refer to help page of assignment function")
-    }
-    data <- read.table(unknown, sep = ",", header = T)
+  if (class(unknown) != "data.frame") {
+    stop("unknown should be a data.frame, see help page of assignment function")
   }
   if (class(unknown) == "data.frame"){
     data <- unknown
