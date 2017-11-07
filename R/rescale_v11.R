@@ -27,6 +27,8 @@
 #
 # 10/19/2017-v11: modified according to new functions of subOrigData
 #
+# 11/06/2017: add feature of checking null values (or values < -500, or > 500) extracted from raster in lm, if yes, then stop.
+#
 # Features need to be added:
 # 1. generic scale function
 # 2. if simulate isoscapes. Then using a loop. if user provide isoscapes then only run resacle and assginment once.
@@ -171,7 +173,17 @@ rescale <- function(orig, precip, mask = NULL, interpMethod = 2) {
     stop("interpMethod should be either 1 or 2")
   }
 
-
+  # if there is no value at precip location, precip.iso could be NA or very large or very small, then stop
+  na <- NULL
+  isna <- which(is.na(precip.iso))
+  outRange1 <- which(precip.iso< (-500))
+  outRange2 <- which(precip.iso > 500)
+  na <- c(isna,outRange1,outRange2)
+  if (!is.na(na)){
+    cat("Error: NO data are found at following locations:")
+    print(calibration[na,1:2])
+    stop ("Delete these data in known origin data or use a different isoscape that has values at these locations")
+  }
 
   # linear regression between known origin and precipitation data
   lmResult <- lm(tissue.iso ~ precip.iso)
