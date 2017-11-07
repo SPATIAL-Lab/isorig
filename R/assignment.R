@@ -24,8 +24,20 @@
 
 assignment <- function(rescaled_raster, unknown, mask = NULL, genplot=T) {
 
+  # load libraries
+  if (require("raster")) {
+    print("raster is loaded correctly")
+  } else {
+    print("trying to install raster")
+    install.packages("raster")
+    if (require("raster")) {
+      print("raster installed and loaded")
+    } else {
+      stop("could not install raster")
+    }
+  }
 
-  if (!is.null(mask)) {
+    if (!is.null(mask)) {
     if (class(mask) == "SpatialPolygonsDataFrame") {
       rescaled_raster <- crop(rescaled_raster, mask)
     } else {
