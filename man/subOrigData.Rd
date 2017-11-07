@@ -8,21 +8,18 @@ subOrigData function
 This function is to subset the isotope data from known origin in isorig package
 }
 \usage{
-subOrigData(taxon, group, ageCode)
+subOrigData(taxon = NULL, group = NULL, mask = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{taxon}{
-one string or a string vector, choosing from taxon names of known origin data. Details can be seen in \code{\link[isorig]{knownOrig}}
+one string or a string vector. Choosing from taxon names of known origin data. Details can be seen in \code{\link[isorig]{knownOrig}}
 }
   \item{group}{
-one string or a string vector, choosing from group names of known origin data. Details can be seen in \code{\link[isorig]{knownOrig}}
+one string or a string vector. Choosing from group names of known origin data. Details can be seen in \code{\link[isorig]{knownOrig}}
 }
   \item{mask}{
-a SpatialPolygonsDataFrame that is used to constrain the investigated area. If this is not provided, default whole world is used.
-}
-  \item{ageCode}{
-%%     ~~Describe \code{ageCode} here~~
+SpatialPolygonsDataFrame. Constrain the investigated area. If this is not provided, default of whole world is used.
 }
 }
 \details{
