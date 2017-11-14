@@ -12,7 +12,7 @@ rescale(orig, precip, mask = NULL, interpMethod = 2, NA.value = NA, ignore.NA = 
 }
 \arguments{
   \item{orig}{
-data.frame. known origin data. 3 columns: 1st is longitude, 2nd is latitude, 3rd is tissue isotope value. Optional known origin data can be querried from this package: \code{\link[isorig]{knownOrig}}.
+data.frame. known origin data. 3 columns: 1st is longitude, 2nd is latitude, 3rd is tissue isotope value. Optional known origin data can be querried from this package: \code{\link[isOrigin]{knownOrig}}.
 }
   \item{precip}{
  raster. isoscape raster
@@ -58,7 +58,7 @@ interpolated (bilinear) from the values of the four nearest raster cells.
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link[isorig]{assign}}
+\code{\link[isOrigin]{assign}}
 }
 \examples{
 data(naMap)

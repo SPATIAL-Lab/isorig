@@ -149,8 +149,8 @@ This data consisits of hydrogen isotope for 2178 samples including human hair, i
 %%  ~~ possibly secondary sources and usages ~~
 }
 \seealso{
-\code{\link[isorig]{origData}}
-\code{\link[isorig]{subOrigData}}
+\code{\link[isOrigin]{origData}}
+\code{\link[isOrigin]{subOrigData}}
 }
 \examples{
 data(knownOrig)

@@ -44,7 +44,7 @@ one-layer or stacked-layer raster with assignment map
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link[isorig]{rescale}}
+\code{\link[isOrigin]{rescale}}
 }
 \examples{
 data(naMap)

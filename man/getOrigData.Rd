@@ -5,7 +5,7 @@
 getOrigData function
 }
 \description{
-This function is to load isotope data from known origin in isorig package and display its summary in console.
+This function is to load isotope data from known origin in isOrigin package and display its summary in console.
 }
 \usage{
 getOrigData()
@@ -34,8 +34,8 @@ getOrigData()
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link[isorig]{knownOrig}}
-\code{\link[isorig]{subOrigData}}
+\code{\link[isOrigin]{knownOrig}}
+\code{\link[isOrigin]{subOrigData}}
 }
 \examples{
 d = getOrigData() # it will show a summary of this data in console and assign data to d

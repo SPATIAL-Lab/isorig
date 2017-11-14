@@ -5,7 +5,7 @@
 subOrigData function
 }
 \description{
-This function is to subset the isotope data from known origin in isorig package
+This function is to subset the isotope data from known origin in isOrigin package
 }
 \usage{
 subOrigData(taxon = NULL, group = NULL, mask = NULL)
@@ -13,10 +13,10 @@ subOrigData(taxon = NULL, group = NULL, mask = NULL)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{taxon}{
-one string or a string vector. Choosing from taxon names of known origin data. Details can be seen in \code{\link[isorig]{knownOrig}}
+one string or a string vector. Choosing from taxon names of known origin data. Details can be seen in \code{\link[isOrigin]{knownOrig}}
 }
   \item{group}{
-one string or a string vector. Choosing from group names of known origin data. Details can be seen in \code{\link[isorig]{knownOrig}}
+one string or a string vector. Choosing from group names of known origin data. Details can be seen in \code{\link[isOrigin]{knownOrig}}
 }
   \item{mask}{
 SpatialPolygonsDataFrame. Constrain the investigated area. If this is not provided, default of whole world is used.
@@ -39,8 +39,8 @@ data selected from known origin data from this package
 }
 
 \seealso{
-\code{\link[isorig]{knownOrig}}
-\code{\link[isorig]{origData}}
+\code{\link[isOrigin]{knownOrig}}
+\code{\link[isOrigin]{origData}}
 }
 
 \examples{
@@ -61,11 +61,11 @@ summary(d3)
 d4 = subOrigData(taxon = "hair")
 summary(d4)
 
-## Because in knownOrig data base in isorig package, human only has hair samples, thus d4 and d3 above are the same
+## Because in knownOrig data base in isOrigin package, human only has hair samples, thus d4 and d3 above are the same
 summary(d4-d3)
 
 ## WITH mask
-data(naMap) # load North America SpatialPolygonsDataFrame data in isorig package
+data(naMap) # load North America SpatialPolygonsDataFrame data in isOrigin package
 d5 = subOrigData(taxon = "Mallard", mask = naMap) # No isotope data found in mask you choose!
 d6 = subOrigData(taxon = c("Monarch","AMRE","AMRO"), mask = naMap)
 d7 = subOrigData(group = "human", mask = naMap)
