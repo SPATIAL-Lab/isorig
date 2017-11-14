@@ -29,13 +29,6 @@
 #
 # 11/06/2017: add feature of checking NA values extracted from raster in lm
 #
-# Features need to be added:
-# 1. generic scale function
-# 2. if simulate isoscapes. Then using a loop. if user provide isoscapes then only run resacle and assginment once.
-# 3. For assignment:
-#    a. Regions with p = 95% CL of origin, where p can be changed.
-#    b. user can input a vector of isotope value of tissue then assign.
-#    c. multi isotopic assignment.
 #+++++++++++++++++++++++++#
 
 
