@@ -3,7 +3,7 @@
 ## origData.R
 ## 11/01/2017, SLC, Chao Ma
 ## AIMS:
-## query data from known origin tissue d2H from isorig pacakge, and apply mask if necessary.
+## query data from known origin tissue d2H from isOrigin pacakge, and apply mask if necessary.
 ####################################################################################
 #
 # Args:
@@ -11,7 +11,7 @@
 #   group: one string or a string vector, choosing from group names of known origin data. Details can be seen in knownOrig
 #   mask : a SpatialPolygonsDataFrame that is used to constrain the investigated area. If this is not provided, default of whole world is used.
 #
-# Returns: known origin data from isorig package
+# Returns: known origin data from isOrigin package
 
 subOrigData <- function(taxon = NULL, group = NULL, mask = NULL) {
   # load data knownOrig
