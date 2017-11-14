@@ -5,7 +5,7 @@
 rescale
 }
 \description{
-Function to calibrate between precipitation water isotope and tissue isotope
+Function to calibrate between precipitation water isotope and tissue isotope. This will output plots as pdf including regression model and rescaled isoscape mean and standard deviation in output folder under working directory
 }
 \usage{
 rescale(orig, precip, mask = NULL, interpMethod = 2, NA.value = NA, ignore.NA = T)
@@ -23,14 +23,14 @@ data.frame. known origin data. 3 columns: 1st is longitude, 2nd is latitude, 3rd
   \item{interpMethod}{
 numeric. 1 or 2. This is method for extracting
 values from precipitation raster based on know origin position. If 1 values
-for the cell a point fall s in are returned. If 2 (default) the returned values are
-interpolated from the values of the four nearest raster cells.
+for the cell a point falls in are returned. If 2 (default) the returned values are
+interpolated (bilinear) from the values of the four nearest raster cells.
 }
 \item{NA.value}{
  (NA [default] or numeric) what is the value for no data in isoscape raster map, could be NA, -9999, 9999, etc. If you are not sure about it, you can read the raster in R and run \code{\link[raster]{click}}(raster) to click the place without value.
 }
 \item{ignore.NA}{
- logical. (T or F [default]) If NA value are extracted at location of known origin, do you want to ignore these value and proceed with rescale function?
+ logical. (T or F [default]) If NA value are extracted from isoscape at location of known origin, do you want to ignore these value and proceed with rescale function?
 }
 }
 \details{
@@ -39,8 +39,10 @@ interpolated from the values of the four nearest raster cells.
 \value{
 %%  ~Describe the value returned
 %%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
+\item{precip.rescale }{Rescaled isoscape based on known origin data and isosape, two layer raster, one is mean the other is standard deviation which is a univeral value for the map from error of linear regression model.}
+\item{lm.data }{known origin data and correlated isoscape value used for linear regression model}
+\item{lm.model}{linear regression model}
+
 %% ...
 }
 \references{
@@ -56,7 +58,7 @@ interpolated from the values of the four nearest raster cells.
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link[isorig]{assign}}
 }
 \examples{
 data(naMap)
