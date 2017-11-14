@@ -1,4 +1,4 @@
-Package: isorig
+Package: isOrigin
 Type: Package
 Title: Rescale isoscape and tissue isotope, and assign origin of migrant animal or human
 Version: 0.1.0
