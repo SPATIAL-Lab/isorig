@@ -54,5 +54,5 @@ r <- rescale(orig = d, precip = d2h_world)
 id <- "smile"
 d2H <- -80
 un <- data.frame(id,d2H)
-asn <- pdRaster(r$precip.rescale,un,mask=naMap)
+asn <- pdRaster(r$isoscape.rescale,un,mask=naMap)
 }
