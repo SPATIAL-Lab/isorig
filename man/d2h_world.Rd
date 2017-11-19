@@ -26,7 +26,7 @@ This file is the global growing season d2H precipitation isoscape available on w
 %%  ~~ reference to a publication or URL from which the data were obtained ~~
 }
 \references{
-%%  ~~ possibly secondary sources and usages ~~
+Bowen, G.J., Wassenaar, L.I. and Hobson, K.A., 2005. Global application of stable hydrogen and oxygen isotopes to wildlife forensics. Oecologia, 143(3), pp.337-348.
 }
 \examples{
 data(d2h_world)

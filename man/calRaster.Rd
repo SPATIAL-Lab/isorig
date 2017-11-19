@@ -1,14 +1,14 @@
-\name{rescale}
-\alias{rescale}
+\name{calRaster}
+\alias{calRaster}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-rescale function
+function to rescale isoscape
 }
 \description{
 This function relies on known-origin tissue data to calibrate between d2H values in precipitation and those in the tissue using simple regression to rescale the precipitation raster into tissue values and generate mean and standard deviation rasters. This will output plots as pdf including regression model and rescaled isoscape mean and standard deviation in output folder under working directory.
 }
 \usage{
-rescale(known, precip, mask = NULL, interpMethod = 2, NA.value = NA, ignore.NA = T)
+calRaster(known, isoscape, mask = NULL, interpMethod = 2, NA.value = NA, ignore.NA = T)
 }
 \arguments{
   \item{known}{
@@ -30,7 +30,7 @@ interpolated (bilinear interpolation) from the values of the four nearest raster
  NA [default] or numeric. Identify the value that was used to represent an absence of data in the isoscape raster map. Commonly used values include NA, -9999, 9999, etc. If you are not sure what value was used in your isoscape, you can load the isoscape raster in R and run \code{\link[raster]{click}}(raster) to click the place without value.
 }
 \item{ignore.NA}{
- logical. (TRUE or FALSE [default]). If NA values are extracted from isoscape at the location of known-origin, do you want to ignore these values and proceed with rescale function?
+ logical. (TRUE or FALSE [default]). If NA values are extracted from isoscape at the location of known-origin, do you want to ignore these values and proceed with calRaster function?
 }
 }
 \details{
@@ -39,7 +39,7 @@ interpolated (bilinear interpolation) from the values of the four nearest raster
 \value{
 %%  ~Describe the value returned
 %%  If it is a LIST, use
-\item{precip.rescale }{Rescaled isoscape based on known origin data and isosape, two layer raster, one is mean the other is standard deviation which is a univeral value for the map from error of linear regression model.}
+\item{isoscape.rescale }{Rescaled isoscape based on known origin data and isosape, two layer raster, one is mean the other is standard deviation which is a univeral value for the map from error of linear regression model.}
 \item{lm.data }{known origin data and correlated isoscape value used for linear regression model}
 \item{lm.model}{linear regression model}
 
@@ -65,5 +65,5 @@ data("naMap")
 data("d2h_world")
 # the columns of d should be longitude, latitude, and tissue isotope
 d <- subOrigData(taxon = c("hair"), mask = naMap)[,2:4]
-r <- rescale(known = d, precip = d2h_world, mask = naMap)
+r <- calRaster(known = d, isoscape = d2h_world, mask = naMap)
 }

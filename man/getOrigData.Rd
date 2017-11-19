@@ -38,7 +38,7 @@ getOrigData()
 \code{\link[isOrigin]{subOrigData}}
 }
 \examples{
-d = getOrigData() # it will show a summary of this data in console and assign data to d
+d <- getOrigData() # it will show a summary of this data in console and assign data to d
 data(wrld_simpl)
 plot(wrld_simpl,axes=T)
 points(d$Longitude,d$Latitude,col="red",cex=0.5)

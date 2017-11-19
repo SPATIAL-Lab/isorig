@@ -22,7 +22,7 @@ North America polygon
 %%  ~~ possibly secondary sources and usages ~~
 }
 \examples{
-data(naMap)
+data("naMap")
 plot(naMap)
 }
 \keyword{datasets}
