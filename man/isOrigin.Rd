@@ -1,7 +1,7 @@
 \name{isOrigin}
 \alias{isOrigin}
 
-\title{}
+\title{isOrigin}
 
 \examples{
 library(isOrigin)
