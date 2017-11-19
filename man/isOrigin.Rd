@@ -8,7 +8,7 @@ library(isOrigin)
 d <- getOrigData()
 library(sp)
 data("naMap") # load North America SpatialPolygonsDataFrame data in isOrigin package
-d5 = subOrigData(taxon = "Turdus merula", mask = naMap) # No isotope data found in mask you choose!
+d5 = subOrigData(taxon = "Turdus merula", mask = naMap) # No isotope data found in mask you chose!
 d6 = subOrigData(taxon = c("Danaus plexippus", "Setophaga ruticilla", "Turdus migratorius"), mask = naMap)
 d7 = subOrigData(group = "human", mask = naMap)
 library(raster)
