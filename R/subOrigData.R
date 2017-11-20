@@ -68,5 +68,5 @@ subOrigData <- function(taxon = NULL, group = NULL, mask = NULL) {
     points(result$Longitude, result$Latitude, col = "red", cex = 0.5)
   }
   cat(length(result[,1]),"data points are found\n")
-  return(result)
+  return(result[,2:4])
 }
