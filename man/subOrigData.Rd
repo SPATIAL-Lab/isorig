@@ -26,7 +26,7 @@ SpatialPolygonsDataFrame. This mask will constrain the investigated area. If thi
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-data selected from known origin data from this package
+Data selected as data frame from known-origin data from this package will be returned. It has three columns: 1. Longitude, 2. Latitude, 3. d2H, which is ready to be feed into calRaster function.
 }
 \references{
 %% ~put references to the literature/web site here ~
