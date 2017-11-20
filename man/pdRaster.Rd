@@ -49,7 +49,7 @@ one-layer or stacked-layer raster with assignment map
 \examples{
 data(naMap)
 data(d2h_world)
-d <- subOrigData(taxon = c("Homo sapiens"), mask = naMap)[,2:4]
+d <- subOrigData(taxon = c("Homo sapiens"), mask = naMap)
 r <- rescale(orig = d, precip = d2h_world)
 id <- "smile"
 d2H <- -80
