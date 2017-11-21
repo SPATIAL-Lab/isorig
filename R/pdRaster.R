@@ -45,7 +45,7 @@ pdRaster <- function(rescaled_raster, unknown, mask = NULL, genplot=T) {
       stop("mask should be a SpatialPolygonsDataFrame")
     }
   }
-  error <- rescaled_raster$sd
+  errorV <- getValues(rescaled_raster$sd)
   if (class(unknown) != "data.frame") {
     stop("unknown should be a data.frame, see help page of pdRaster function")
   }
@@ -57,34 +57,27 @@ pdRaster <- function(rescaled_raster, unknown, mask = NULL, genplot=T) {
   dir.create("output")
   dir.create("output/pdRaster_Gtif")
 
+  meanV <- getValues(rescaled_raster$mean)
+  result <- NULL
   for (i in 1:n) {
     indv.data <- data[i, ]
     indv.id <- indv.data[1, 1]
-    assign <- 1/sqrt((2 * pi * error^2)) * exp(-1 * (indv.data[1, 2] -
-                                                       rescaled_raster$mean)^2/(2 * error^2))
-    assign_norm <- assign/cellStats(assign, "sum")  #normalize so all pixels sum to 1
-
-
-
+    assign <- 1/sqrt((2 * pi * errorV^2)) * exp(-1 * (indv.data[1, 2] -
+                                                       meanV)^2/(2 * errorV^2))
+    assign_norm <- assign/sum(assign[!is.na(assign)])  #normalize so all pixels sum to 1
+    assign_norm <- setValues(rescaled_raster$mean,assign_norm)
+    if (genplot ==T){
+      par(mfrow=c(1,1))
+      plot(assign_norm)
+    }
+    if (i == 1){
+      result <- assign_norm
+    } else {
+      result <- stack(result, assign_norm)
+    }
     filename <- paste("output/pdRaster_Gtif/", indv.id, ".like", ".tif", sep = "")
     writeRaster(assign_norm, filename = filename, format = "GTiff",
                 overwrite = TRUE)
-  }
-
-  result <- NULL
-
-  for (i in 1:n) {
-    a <- raster(paste("output/pdRaster_Gtif/", data[i, 1], ".like.tif", sep = ""))
-    if (genplot ==T){
-      par(mfrow=c(1,1))
-      plot(a)
-    }
-
-    if (i == 1){
-      result <- a
-    } else {
-      result <- stack(result, a)
-    }
   }
 
 

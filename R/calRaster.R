@@ -164,7 +164,9 @@ calRaster <- function(known, isoscape, mask = NULL, interpMethod = 2, NA.value =
   print(summary(lmResult))
   intercept <- as.numeric(coef(lmResult)[1])
   slope <- as.numeric(coef(lmResult)[2])
-  isoscape.rescale <- isoscape * slope + intercept
+  temp <- getValues(isoscape)
+  temp1 <- temp * slope + intercept
+  isoscape.rescale <- setValues(isoscape,temp1)
   # plot linear regression result
   x = isoscape.iso
   y = tissue.iso
