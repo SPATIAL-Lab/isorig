@@ -64,6 +64,6 @@ interpolated (bilinear interpolation) from the values of the four nearest raster
 data("naMap")
 data("d2h_world")
 # the columns of d should be longitude, latitude, and tissue isotope
-d <- subOrigData(taxon = c("hair"), mask = naMap)[,2:4]
+d <- subOrigData(taxon = c("Homo sapiens"), mask = naMap)
 r <- calRaster(known = d, isoscape = d2h_world, mask = naMap)
 }
