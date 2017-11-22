@@ -1,4 +1,4 @@
-pdRaster <- function(rescaled_raster, unknown, mask = NULL, genplot=T) {
+pdRaster <- function(rescaled.mean, rescaled.sd, unknown, mask = NULL, genplot=T) {
 
   if (require("raster")) {
     print("raster is loaded correctly")
@@ -13,7 +13,8 @@ pdRaster <- function(rescaled_raster, unknown, mask = NULL, genplot=T) {
   }
     if (!is.null(mask)) {
     if (class(mask) == "SpatialPolygonsDataFrame") {
-      rescaled_raster <- crop(rescaled_raster, mask)
+      rescaled.mean <- crop(rescaled.mean, mask)
+      rescaled.sd <- crop(rescaled.sd, mask)
     } else {
       stop("mask should be a SpatialPolygonsDataFrame")
     }
@@ -27,26 +28,26 @@ pdRaster <- function(rescaled_raster, unknown, mask = NULL, genplot=T) {
   n <- length(data[, 2])
   dir.create("output")
   dir.create("output/pdRaster_Gtif")
-  errorV <- getValues(rescaled_raster$sd)
-  meanV <- getValues(rescaled_raster$mean)
+  errorV <- getValues(rescaled.sd)
+  meanV <- getValues(rescaled.mean)
   result <- NULL
   for (i in 1:n) {
     indv.data <- data[i, ]
     indv.id <- indv.data[1, 1]
     assign <- dnorm(indv.data[i, 2], mean = meanV, sd = errorV)
-    assign_norm <- assign/sum(assign[!is.na(assign)])
-    assign_norm <- setValues(rescaled_raster$mean,assign_norm)
+    assign.norm <- assign/sum(assign[!is.na(assign)])
+    assign.norm <- setValues(rescaled.mean,assign.norm)
     if (genplot ==T){
       par(mfrow=c(1,1))
-      plot(assign_norm)
+      plot(assign.norm)
     }
     if (i == 1){
-      result <- assign_norm
+      result <- assign.norm
     } else {
-      result <- stack(result, assign_norm)
+      result <- stack(result, assign.norm)
     }
     filename <- paste("output/pdRaster_Gtif/", indv.id, ".like", ".tif", sep = "")
-    writeRaster(assign_norm, filename = filename, format = "GTiff",
+    writeRaster(assign.norm, filename = filename, format = "GTiff",
                 overwrite = TRUE)
   }
   if (n > 5){
