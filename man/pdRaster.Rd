@@ -5,7 +5,7 @@
 assign function
 }
 \description{
-Assign unknown tissue isotope to calibrated precipitation isoscape
+Assign unknown tissue isotope to calibrated precipitation isoscape.
 }
 \usage{
 pdRaster(rescaled_raster, unknown, mask = NULL, genplot=T)
@@ -29,7 +29,7 @@ logical. Generate summary plots in R? (TRUE [default] or FALSE)
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-one-layer or stacked-layer raster with assignment map
+returns an object of class rasterStack that includes a probability density raster for each individual in "unknown". pdRaster writes individual rasters in GTiff format to disk in the working directory for each individual in "unknown".
 }
 \references{
 %% ~put references to the literature/web site here ~
