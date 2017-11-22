@@ -8,18 +8,21 @@ assign function
 Assign unknown tissue isotope to calibrated precipitation isoscape.
 }
 \usage{
-pdRaster(rescaled_raster, unknown, mask = NULL, genplot=T)
+pdRaster(rescaled.mean, rescaled.sd, unknown, mask = NULL, genplot=T)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{rescaled_raster}{
-raster. The tissue-calibrated isoscape raster (mean and sd) obtained from rescale function, or user provided
+  \item{rescaled.mean}{
+raster. The tissue-calibrated isoscape raster (mean) obtained from rescale function, or user provides
+}
+  \item{rescaled.sd}{
+raster. The tissue-calibrated isoscape raster (standard deviation) obtained from rescale function, or user provides
 }
   \item{unknown}{
 data.frame. First column should be unique sample ID, and second column should be tissue d2H values of the individuals for which the assignments will be made.
 }
 \item{mask}{
-SpatialPolygonsDataFrame. This mask will constrain the assignment area. If this is not provided, a default of mask rescaled_raster is used.
+SpatialPolygonsDataFrame. This mask will constrain the assignment area. If this is not provided, a default of mask of rescaled.mean is used.
 }
 \item{genplot}{
 logical. Generate summary plots in R? (TRUE [default] or FALSE)
@@ -50,9 +53,9 @@ returns an object of class rasterStack that includes a probability density raste
 data(naMap)
 data(d2h_world)
 d <- subOrigData(taxon = c("Homo sapiens"), mask = naMap)
-r <- rescale(orig = d, precip = d2h_world)
+r <- calRaster(known = d, isoscape = d2h_world, mask = naMap)
 id <- "smile"
 d2H <- -80
 un <- data.frame(id,d2H)
-asn <- pdRaster(r$isoscape.rescale,un,mask=naMap)
+asn <- pdRaster(r$isoscape.rescale$mean, r$isoscape.rescale$sd, un,mask=naMap)
 }
