@@ -1,4 +1,4 @@
-pdRaster <- function(rescaled.mean, rescaled.sd, unknown, mask = NULL, genplot=T) {
+pdRaster <- function(rescaled.mean, rescaled.sd, unknown, mask = NULL, genplot = TRUE) {
 
   if (require("raster")) {
     print("raster is loaded correctly")
@@ -31,16 +31,13 @@ pdRaster <- function(rescaled.mean, rescaled.sd, unknown, mask = NULL, genplot=T
   errorV <- getValues(rescaled.sd)
   meanV <- getValues(rescaled.mean)
   result <- NULL
+  temp <- list()
   for (i in 1:n) {
     indv.data <- data[i, ]
     indv.id <- indv.data[1, 1]
-    assign <- dnorm(indv.data[i, 2], mean = meanV, sd = errorV)
+    assign <- dnorm(indv.data[1, 2], mean = meanV, sd = errorV)
     assign.norm <- assign/sum(assign[!is.na(assign)])
     assign.norm <- setValues(rescaled.mean,assign.norm)
-    if (genplot ==T){
-      par(mfrow=c(1,1))
-      plot(assign.norm)
-    }
     if (i == 1){
       result <- assign.norm
     } else {
@@ -57,17 +54,19 @@ pdRaster <- function(rescaled.mean, rescaled.sd, unknown, mask = NULL, genplot=T
     pdf("./output/output_pdRaster.pdf", width = 20, height = 20)
   }
 
-  for (i in 1:n) {
-    a <- raster(paste("output/pdRaster_Gtif/", data[i, 1], ".like.tif", sep = ""))
-    plot(a)
-    text(data[i,1], data[i,2], "+", cex = 2)
-
-    if (i == 1){
-      result <- a
-    } else {
-      result <- stack(result, a)
-    }
-  }
   dev.off()
+
+  if (genplot == TRUE){
+    if (n == 1){
+      pp <- spplot(result)
+      print(pp)
+    } else {
+      for (i in 1:n){
+        print(spplot(result@layers[[i]], scales = list(draw = TRUE), main=paste("Probability Density Surfaces for", data[i,1])))
+      }
+    }
+
+  }
+
   return(result)
 }
