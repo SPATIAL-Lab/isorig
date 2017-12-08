@@ -18,9 +18,8 @@ d = subOrigData(taxon = c("Homo sapiens"), mask = naMap)
 dd = d[d$Longitude<(-80),]
 r = calRaster(known = dd, isoscape = d2h_world, mask = naMap)
 # one unknown-origin example
-id = "Harry_Potter"
-d2H = -110
+id = c("Harry_Potter", "Superman")
+d2H = c(-110, -180)
 un = data.frame(id,d2H)
 asn = pdRaster(r$isoscape.rescale$mean,r$isoscape.rescale$sd,unknown=un,mask=naMap)
-
 }
