@@ -155,12 +155,16 @@ calRaster <- function(known, isoscape, mask = NULL, interpMethod = 2, NA.value =
   if (!is.null(mask)) {
   isoscape.rescale <- crop(isoscape.rescale,mask)
   }
-  plot(isoscape.rescale, main = c("rescale mean", "rescale sd"))
+  print(spplot(isoscape.rescale$mean, scales = list(draw = TRUE), main = "rescale mean"))
+  print(spplot(isoscape.rescale$sd,scales = list(draw = TRUE), main="rescale sd"))
+
   dir.create("output")
   pdf("./output/rescale.result.pdf",width = 8,height = 4)
   print(p11)
-  plot(isoscape.rescale, main = c("rescale mean", "rescale sd"))
+  print(spplot(isoscape.rescale$mean, scales = list(draw = TRUE), main = "rescale mean"))
+  print(spplot(isoscape.rescale$sd,scales = list(draw = TRUE), main="rescale sd"))
   dev.off()
+
   names(xy) = c("isoscape.iso","tissue.iso")
   result = list ("isoscape.rescale" = isoscape.rescale, "lm.data" = xy, "lm.model" = lmResult)
   return(result)
