@@ -54,6 +54,17 @@ pdRaster <- function(rescaled.mean, rescaled.sd, unknown, mask = NULL, genplot =
     pdf("./output/output_pdRaster.pdf", width = 20, height = 20)
   }
 
+  if (genplot == TRUE){
+    if (n == 1){
+      pp <- spplot(result)
+      print(pp)
+    } else {
+      for (i in 1:n){
+        print(spplot(result@layers[[i]], scales = list(draw = TRUE), main=paste("Probability Density Surfaces for", data[i,1])))
+      }
+    }
+  }
+
   dev.off()
 
   if (genplot == TRUE){
@@ -65,7 +76,6 @@ pdRaster <- function(rescaled.mean, rescaled.sd, unknown, mask = NULL, genplot =
         print(spplot(result@layers[[i]], scales = list(draw = TRUE), main=paste("Probability Density Surfaces for", data[i,1])))
       }
     }
-
   }
 
   return(result)
