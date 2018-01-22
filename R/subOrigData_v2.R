@@ -24,7 +24,7 @@ subOrigData <- function(taxon = NULL, group = NULL, mask = NULL) {
       if (is.na(proj4string(mask))){
         stop("mask must have coord. ref.")
       } else {
-        crs(mask) <- crs(proj0)
+        crs(mask) <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
       }
       s <- SpatialPointsDataFrame(coords = cbind(result$Longitude,
                                                  result$Latitude), data = result, proj4string = CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))

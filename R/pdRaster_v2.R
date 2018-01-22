@@ -16,7 +16,7 @@ pdRaster <- function(rescaled.mean, rescaled.sd, unknown, mask = NULL, genplot =
       if (is.na(proj4string(mask))){
         stop("mask must have coord. ref.")
       } else {
-        crs(mask) <- crs(proj0)
+        crs(mask) <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
       }
       rescaled.mean <- crop(rescaled.mean, mask)
       rescaled.sd <- crop(rescaled.sd, mask)
