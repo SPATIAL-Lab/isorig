@@ -5,6 +5,7 @@
 
 \examples{
 library(isOrigin)
+library(ggplot2)
 d <- getOrigData()
 library(sp)
 data("naMap") # load North America SpatialPolygonsDataFrame data in isOrigin package
