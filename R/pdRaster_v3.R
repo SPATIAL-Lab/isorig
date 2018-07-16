@@ -42,10 +42,10 @@ pdRaster <- function(rescaled.mean, rescaled.sd, unknown, mask = NULL, genplot =
                 overwrite = TRUE)
   }
   if (n > 5){
-    pdf("./output/output_pdRaster.pdf", width = 20, height = 40)
-    par(mfrow = c(ceiling(length(data.class()[, 1])/5), 5))
+    pdf("./output/output_pdRaster.pdf", width = 10, height = 10)
+    par(mfrow = c(ceiling(n/5), 5))
   } else {
-    pdf("./output/output_pdRaster.pdf", width = 20, height = 20)
+    pdf("./output/output_pdRaster.pdf", width = 10, height = 10)
   }
 
   if (genplot == TRUE){
