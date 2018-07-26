@@ -5,7 +5,7 @@ Version: 0.1.2
 Author: Chao Ma
 Maintainer: Chao Ma <chao.ma@utah.edu>
 Description: Routines for Rescale isoscape using known-origin tissue isotope values, and assign origin of unknown samples with isotopic data 
-Depends: raster, sp, ggplot2
+Depends: 
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
