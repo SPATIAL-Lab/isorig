@@ -47,7 +47,7 @@ returns an object of class rasterStack that includes a probability density raste
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link[isOrigin]{rescale}}
+\code{\link[isOrigin]{calRaster}}
 }
 \examples{
 data(naMap)

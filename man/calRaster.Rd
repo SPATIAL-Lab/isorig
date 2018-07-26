@@ -58,7 +58,7 @@ interpolated (bilinear interpolation) from the values of the four nearest raster
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link[isOrigin]{assign}}
+\code{\link[isOrigin]{pdRaster}}
 }
 \examples{
 data("naMap")

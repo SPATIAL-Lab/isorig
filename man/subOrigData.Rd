@@ -39,8 +39,7 @@ Data selected as data frame from known-origin data from this package will be ret
 }
 
 \seealso{
-\code{\link[isOrigin]{knownOrig}}
-\code{\link[isOrigin]{origData}}
+\code{\link[isOrigin]{getOrigData}}
 }
 
 \examples{
