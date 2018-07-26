@@ -1,11 +1,11 @@
 Package: isOrigin
 Type: Package
-Title: Rescale isoscape and tissue isotope, and assign origin of migrant animal or human
-Version: 0.1.0
+Title: Rescale isoscape using known-origin tissue isotope values, and assign origin of unknown samples with isotopic data 
+Version: 0.1.2
 Author: Chao Ma
 Maintainer: Chao Ma <chao.ma@utah.edu>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: Routines for Rescale isoscape using known-origin tissue isotope values, and assign origin of unknown samples with isotopic data 
+Depends: raster, sp, rgdal, ggplot2
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
