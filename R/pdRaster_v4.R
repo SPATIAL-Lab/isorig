@@ -1,8 +1,8 @@
 pdRaster <- function(r, unknown, mask = NULL, genplot = TRUE) {
-  if(class(r) != "RasterStack"){
-    stop("input isoscape should be RasterLayer with two layers (mean and standard deviation)")
+  if(class(r) != "RasterStack" & class(r) != "RasterBrick"){
+    stop("input isoscape should be RasterStack or RasterBrick with two layers (mean and standard deviation)")
   } else if(nlayers(r) != 2) {
-    stop("input isoscape should be RasterLayer with two layers (mean and standard deviation)")
+    stop("input isoscape should be RasterStack or RasterBrick with two layers (mean and standard deviation)")
   }
   rescaled.mean = r[[1]]
   rescaled.sd = r[[2]]
@@ -60,7 +60,7 @@ pdRaster <- function(r, unknown, mask = NULL, genplot = TRUE) {
       print(pp)
     } else {
       for (i in 1:n){
-        print(spplot(result@layers[[i]], scales = list(draw = TRUE), main=paste("Probability Density Surfaces for", data[i,1])))
+        print(spplot(result@layers[[i]], scales = list(draw = TRUE), main=paste("Probability Density Surface for", data[i,1])))
       }
     }
   }
@@ -73,7 +73,7 @@ pdRaster <- function(r, unknown, mask = NULL, genplot = TRUE) {
       print(pp)
     } else {
       for (i in 1:n){
-        print(spplot(result@layers[[i]], scales = list(draw = TRUE), main=paste("Probability Density Surfaces for", data[i,1])))
+        print(spplot(result@layers[[i]], scales = list(draw = TRUE), main=paste("Probability Density Surface for", data[i,1])))
       }
     }
   }
