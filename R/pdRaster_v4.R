@@ -47,6 +47,7 @@ pdRaster <- function(r, unknown, mask = NULL, genplot = TRUE) {
     writeRaster(assign.norm, filename = filename, format = "GTiff",
                 overwrite = TRUE)
   }
+  names(result) <- data[,1]
   if (n > 5){
     pdf("./output/output_pdRaster.pdf", width = 10, height = 10)
     par(mfrow = c(ceiling(n/5), 5))
