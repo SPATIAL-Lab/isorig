@@ -10,6 +10,8 @@ jointP <- function(pdR){
     }
   }
   result <- result/cellStats(result,sum)
-  print(plot(result))
+  names(result) <- "Joint_Probability"
+  plot(result)
+  title("Joint Probability")
   return(result)
 }
