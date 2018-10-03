@@ -1,4 +1,4 @@
-qtlRaster <- function(pdR, threshold, thresholdType){
+qtlRaster <- function(pdR, threshold, thresholdType, genplot = T, pdf = F){
   if(class(pdR) != "RasterLayer" & class(pdR) != "RasterStack" & class(pdR) != "RasterBrick"){
     stop("input probability density map (pdR) should be one of the following class: RasterLayer, RasterStack or RasterBrick")
   }
@@ -16,6 +16,12 @@ qtlRaster <- function(pdR, threshold, thresholdType){
   }
   if(thresholdType != 1 & thresholdType != 2){
     stop("thresholdType must be 1 or 2. See help page for further information")
+  }
+  if(class(genplot) != "logical"){
+    stop("genplot must be logical (T/F)")
+  }
+  if(class(pdf) != "logical"){
+    stop("pdf must be logical (T/F)")
   }
   result <- pdR
   if(thresholdType == 1){
@@ -37,6 +43,7 @@ qtlRaster <- function(pdR, threshold, thresholdType){
       }
       result[[i]] <- pdR[[i]] > pdR.values[start]
     }
+    title1 <- "by Cumulative Probability"
   }
   if(thresholdType == 2){
     for(i in 1:nlayers(pdR)){
@@ -45,8 +52,22 @@ qtlRaster <- function(pdR, threshold, thresholdType){
       cut <- sort(pdR.values)[round((1-threshold)*k)]
       result[[i]] <- pdR[[i]]>cut
     }
+    title1 <- "by Area"
   }
   names(result) <- names(pdR)
-  print(plot(result))
+  if(genplot){
+    for(i in 1:nlayers(result)){
+      plot(result[[i]])
+      title(paste0("Top ", threshold*100, "% ", title1, "for ", names(result)[i]))
+    }
+  }
+  if(pdf){
+    pdf("qtlRaster_result.pdf")
+    for(i in 1:nlayers(result)){
+      plot(result[[i]])
+      title(paste0("Top ", threshold*100, "% ", title1, " for ", names(result)[i]))
+    }
+    dev.off()
+  }
   return(result)
 }
