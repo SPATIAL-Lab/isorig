@@ -12,11 +12,8 @@ pdRaster(rescaled.mean, rescaled.sd, unknown, mask = NULL, genplot=T)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{rescaled.mean}{
-raster. The tissue-calibrated isoscape raster (mean) obtained from rescale function, or user provides
-}
-  \item{rescaled.sd}{
-raster. The tissue-calibrated isoscape raster (standard deviation) obtained from rescale function, or user provides
+  \item{r}{
+RasterStack or RasterBrick with two layers. The tissue-calibrated isoscape raster (mean and sd) obtained from rescale function, or user provides
 }
   \item{unknown}{
 data.frame. First column should be unique sample ID, and second column should be tissue d2H values of the individuals for which the assignments will be made.
@@ -57,5 +54,5 @@ r <- calRaster(known = d, isoscape = d2h_world, mask = naMap)
 id <- "smile"
 d2H <- -80
 un <- data.frame(id,d2H)
-asn <- pdRaster(r$isoscape.rescale$mean, r$isoscape.rescale$sd, un,mask=naMap)
+asn <- pdRaster(r$isoscape.rescale, un,mask=naMap)
 }

@@ -21,6 +21,12 @@ numeric from 0 to 1, top percentage to choose
   \item{thresholdType}{
 numeric 1 or 2. 1 is to choose top percentage by area; 2 is to choose top percentage by cumulative probability
 }
+  \item{genplot}{
+generate summary plot? (T or F)
+}
+  \item{pdf}{
+save summary plot as PDF? (T or F)
+}
 }
 
 \examples{
@@ -37,11 +43,11 @@ id = c("A", "B", "C", "D")
 d2H = c(-110, -180, -130, -150)
 un = data.frame(id,d2H)
 # assignment
-asn = pdRaster(r$isoscape.rescale$mean,r$isoscape.rescale$sd,unknown=un,mask=naMap)
+asn = pdRaster(r$isoscape.rescale,unknown=un,mask=naMap)
 # top 10% of probability surface (defined by % area)
-qtlRaster(asn, threshold = 0.1, thresholdType = 2)
+qtlRaster(asn, threshold = 0.1, thresholdType = 2, pdf = T)
 # top 10% of probability surface (defined by % cumulative probability)
-qtlRaster(asn, threshold = 0.1, thresholdType = 1)
+qtlRaster(asn, threshold = 0.1, thresholdType = 1, pdf = F)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -1,14 +1,14 @@
-\name{unionP}
-\alias{unionP}
+\name{jointP}
+\alias{jointP}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-unionP
+jointP
 }
 \description{
-Probability that at least one individual came from the location (union of probabilities)
+Joint probability for individuals of common origin (product of probabilities)
 }
 \usage{
-unionP(pdR)
+jointP(pdR)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -32,10 +32,8 @@ d2H = c(-110, -180, -130, -150)
 un = data.frame(id,d2H)
 # assignment
 asn = pdRaster(r$isoscape.rescale,unknown=un,mask=naMap)
-# Probability that at least one individual came from the location (union of probabilities)
-unionP(asn)
+# joint probability for individuals of common origin
+jointP(asn)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+}
+
