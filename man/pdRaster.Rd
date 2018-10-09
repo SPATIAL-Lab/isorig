@@ -8,7 +8,7 @@ assign function
 Assign unknown tissue isotope to calibrated precipitation isoscape.
 }
 \usage{
-pdRaster(rescaled.mean, rescaled.sd, unknown, mask = NULL, genplot=T)
+pdRaster(r, unknown, mask = NULL, genplot=T)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
