@@ -19,7 +19,7 @@ probability density map which must be raster or RasterLayer
 numeric from 0 to 1, top percentage to choose
 }
   \item{thresholdType}{
-numeric 1 or 2. 1 is to choose top percentage by area; 2 is to choose top percentage by cumulative probability
+numeric 1 or 2. 1 is to choose top percentage by cumulative probability; 2 is to choose top percentage by area
 }
   \item{genplot}{
 generate summary plot? (T or F)
