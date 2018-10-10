@@ -21,7 +21,6 @@ This dataset consists of hydrogen values for 2178 samples including human hair, 
 %%  ~~ possibly secondary sources and usages ~~
 }
 \seealso{
-\code{\link[isOrigin]{getOrigData}}
 \code{\link[isOrigin]{subOrigData}}
 }
 \examples{
