@@ -38,10 +38,6 @@ Data selected as data frame from known-origin data from this package will be ret
 %%  ~~further notes~~
 }
 
-\seealso{
-\code{\link[isOrigin]{getOrigData}}
-}
-
 \examples{
 ## WITHOUT mask
 # extract data of taxon of Jackdaw, Partridge and Willow Grouse
