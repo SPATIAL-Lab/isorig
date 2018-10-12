@@ -20,7 +20,7 @@ calRaster <- function(known, isoscape, mask = NULL, interpMethod = 2, NA.value =
       #s <- SpatialPointsDataFrame(coords = known[,1:2],
       #                                            data = known, proj4string = CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
       o <- over(s, mask)
-
+      known <- as.data.frame(known)
       known <- known[!is.na(o), ]
     } else {
       stop("mask should be a SpatialPolygonsDataFrame")
