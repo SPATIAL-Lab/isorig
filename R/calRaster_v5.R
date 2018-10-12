@@ -4,7 +4,9 @@ calRaster <- function(known, isoscape, mask = NULL, interpMethod = 2, NA.value =
     stop("known should be a SpatialPointsDataFrame, see help page of rescale function")
   } else {
     s <- known
-    known <- as.data.frame(known)
+  }
+  if(is.na(proj4string(known))){
+    stop("known must have coord. ref. of +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
   }
 
   if (!is.null(mask)) {
