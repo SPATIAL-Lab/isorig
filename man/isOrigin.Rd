@@ -4,23 +4,68 @@
 \title{isOrigin}
 
 \examples{
+### Load library
 library(isOrigin)
-library(ggplot2)
-d <- getOrigData()
-library(sp)
-data("naMap") # load North America SpatialPolygonsDataFrame data in isOrigin package
-d5 = subOrigData(taxon = "Turdus merula", mask = naMap) # No isotope data found in mask you choose!
-d6 = subOrigData(taxon = c("Danaus plexippus", "Setophaga ruticilla", "Turdus migratorius"), mask = naMap)
-d7 = subOrigData(group = "human", mask = naMap)
-library(raster)
-data(d2h_world)
+
+### Load North America mask
+data("naMap")
+plot(naMap)
+
+### Load world precipitation hydrogen isoscape
+data("d2h_world")
+plot(d2h_world)
+
+### Load hydrogen isotope for human hair in North America
 d = subOrigData(taxon = c("Homo sapiens"), mask = naMap)
-# exclude some outliers. This step is optional, which depends on your data quality
-dd = d[d$Longitude<(-80),]
+
+### Exclude some outliers. This step is optional, which depends on your data quality
+d <-as.data.frame(d)
+dd = d[d$coords.x1<(-80),]
+dd <- SpatialPointsDataFrame(dd[,2:3], as.data.frame(dd[,1]))
+crs(dd) <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
+
+### Rescale from environmental isoscape to tissue isoscape (known must be SpatialPointsDataFrame with coordinate reference system )
 r = calRaster(known = dd, isoscape = d2h_world, mask = naMap)
-# one unknown-origin example
-id = c("Harry_Potter", "Superman")
-d2H = c(-110, -180)
+
+### 26 unknown-origin examples
+id=letters
+d2H = seq(-160, -80, by=80/25)
 un = data.frame(id,d2H)
+
+### Assignment for unknown-origin examples
 asn = pdRaster(r$isoscape.rescale,unknown=un,mask=naMap)
+
+### Create SpatialPolygons with two polygons
+p1 <- c(-100,60,-100,65,-110,65,-110,60,-100,60)
+p1 <- matrix(p1, 5,2, byrow = T)
+p1 <- Polygon(p1)
+p1 <- Polygons(list(p1), "p1")
+p2 <- c(-100,40,-100,45,-110,45,-110,40,-100,40)
+p2 <- matrix(p2, 5,2, byrow = T)
+p2 <- Polygon(p2)
+p2 <- Polygons(list(p2), "p2")
+p12 <- SpatialPolygons(list(p1,p2),1:2)
+plot(p12)
+
+### Create data.frame with two points
+pp1 <- c(-100,45)
+pp2 <- c(-100,60)
+pp12 <- as.data.frame(rbind(pp1,pp2))
+### Caculate odds ratio for the two polygons created above
+oddsRatio(asn, p12)
+
+### Caculate odds ratio for the two points created above
+oddsRatio(asn, pp12)
+
+## Binary reclassification
+### Top 10% of probability surface (defined by % area)
+qtlRaster(asn, threshold = 0.1, thresholdType = 2)
+### Top 10% of probability surface (defined by % cumulative probability)
+qtlRaster(asn, threshold = 0.1, thresholdType = 1)
+
+### Joint probability for individuals of common origin
+jointP(asn)
+
+### Probability that at least one individual came from the location (union of probabilities)
+unionP(asn)
 }

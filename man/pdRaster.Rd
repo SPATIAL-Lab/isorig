@@ -29,7 +29,7 @@ logical. Generate summary plots in R? (TRUE [default] or FALSE)
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-returns an object of class rasterStack that includes a probability density raster for each individual in "unknown". pdRaster writes individual rasters in GTiff format to disk in the working directory for each individual in "unknown".
+returns an object of class RasterStack or RasterLayer that includes a probability density raster for each individual in "unknown". pdRaster writes individual rasters in GTiff format to disk in the working directory for each individual in "unknown".
 }
 \references{
 %% ~put references to the literature/web site here ~

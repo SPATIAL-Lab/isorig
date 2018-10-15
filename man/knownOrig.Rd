@@ -5,7 +5,7 @@
 Isotope values for tissues of known origin
 }
 \description{
-This dataset consists of hydrogen values for 2178 samples including human hair, insect chitin and birds feathers, with location information.
+This dataset consists of hydrogen values including human hair, insect chitin and birds feathers, with location information.
 }
 \usage{data("knownOrig")}
 \format{

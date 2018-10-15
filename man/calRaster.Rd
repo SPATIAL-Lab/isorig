@@ -12,7 +12,7 @@ calRaster(known, isoscape, mask = NULL, interpMethod = 2, NA.value = NA, ignore.
 }
 \arguments{
   \item{known}{
-data.frame. known-origin data that should contain the following 3 columns: 1st is longitude, 2nd is latitude, 3rd is tissue isotope value. Optional known-origin data can be queried using the \code{\link[isOrigin]{knownOrig}} function.
+SpatialPointsDataFrame. known-origin data that should contain one feature: tissue isotope value. This input must have a coordinate reference system of "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0". Optional known-origin data can be queried using the \code{\link[isOrigin]{knownOrig}} function.
 }
   \item{isoscape}{
  raster. isoscape raster

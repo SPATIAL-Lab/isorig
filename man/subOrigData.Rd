@@ -10,7 +10,6 @@ This function will permit subset the known-origin stable isotope dataset include
 \usage{
 subOrigData(taxon = NULL, group = NULL, mask = NULL)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{taxon}{
 one string or a string vector. Select species names of known origin data. Details can be seen in \code{\link[isOrigin]{knownOrig}}
@@ -26,7 +25,7 @@ SpatialPolygonsDataFrame. This mask will constrain the investigated area. If thi
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-Data selected as data frame from known-origin data from this package will be returned. It has three columns: 1. Longitude, 2. Latitude, 3. d2H, which is ready to be fed into calRaster function.
+Data selected as SpatialPointsdataFrame from known-origin data from this package will be returned. It has one feature: d2H, which is ready to be fed into calRaster function.
 }
 \references{
 %% ~put references to the literature/web site here ~
@@ -55,9 +54,6 @@ summary(d3)
 # extract data of taxon of hair from human
 d4 = subOrigData(taxon = "Homo sapiens")
 summary(d4)
-
-## Because in knownOrig data base in isOrigin package, human only has hair samples, thus d4 and d3 above are the same
-summary(d4-d3)
 
 ## WITH mask
 data(naMap) # load North America SpatialPolygonsDataFrame data in isOrigin package
