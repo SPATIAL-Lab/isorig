@@ -58,7 +58,7 @@ qtlRaster <- function(pdR, threshold, thresholdType, genplot = T, pdf = F){
   if(genplot){
     for(i in 1:nlayers(result)){
       plot(result[[i]])
-      title(paste0("Top ", threshold*100, "% ", title1, "for ", names(result)[i]))
+      title(paste0("Top ", threshold*100, "% ", title1, " for ", names(result)[i]))
     }
   }
   if(pdf){
