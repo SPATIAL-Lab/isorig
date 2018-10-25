@@ -25,6 +25,8 @@ calRaster <- function(known, isoscape, mask = NULL, interpMethod = 2, NA.value =
     } else {
       stop("mask should be a SpatialPolygonsDataFrame")
     }
+  } else {
+    known <- as.data.frame(known)
   }
 
   nSample <- nrow(known)
