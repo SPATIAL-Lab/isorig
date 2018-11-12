@@ -5,10 +5,10 @@
 function to rescale isoscape
 }
 \description{
-This function relies on known-origin tissue data to calibrate between d2H values in precipitation and those in the tissue using simple regression to rescale the precipitation raster into tissue values and generate mean and standard deviation rasters. This will output plots as pdf including regression model and rescaled isoscape mean and standard deviation in output folder under working directory.
+This function relies on known-origin tissue data to calibrate between isotope values in precipitation and those in the tissue using simple regression to rescale the precipitation raster into tissue values and generate mean and standard deviation rasters. This will output plots as pdf including regression model and rescaled isoscape mean and standard deviation in output folder under working directory.
 }
 \usage{
-calRaster(known, isoscape, mask = NULL, interpMethod = 2, NA.value = NA, ignore.NA = T)
+calRaster(known, isoscape, mask = NULL, sdMethod = 2, interpMethod = 2, NA.value = NA, ignore.NA = T)
 }
 \arguments{
   \item{known}{
@@ -19,6 +19,9 @@ SpatialPointsDataFrame. known-origin data that should contain one feature: tissu
 }
   \item{mask}{
  SpatialPolygonsDataFrame. This mask will constrain the isoscape area. If this is not provided, default of mask of isoscape in this argument is used.
+}
+  \item{sdMethod}{
+ Uncertainty in the isoscape is standard deviation (1) or two standard deviation (2, default)
 }
   \item{interpMethod}{
 numeric. 1 or 2. Designate oen of two methods for extracting
@@ -48,14 +51,6 @@ interpolated (bilinear interpolation) from the values of the four nearest raster
 \references{
 %% ~put references to the literature/web site here ~
 }
-\author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
 \code{\link[isOrigin]{pdRaster}}
