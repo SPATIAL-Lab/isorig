@@ -71,8 +71,9 @@ pdRaster <- function(r, unknown, mask = NULL, genplot = T, saveFile = T) {
       }
     }
   }
-
-  dev.off()
+  if(saveFile == T){
+    dev.off()
+  }
 
   if (genplot == TRUE){
     if (n == 1){
