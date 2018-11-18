@@ -4,6 +4,12 @@ pdRaster <- function(r, unknown, mask = NULL, genplot = T, saveFile = T) {
   } else if(nlayers(r) != 2) {
     stop("input isoscape should be RasterStack or RasterBrick with two layers (mean and standard deviation)")
   }
+  if(class(genplot) != "logical"){
+    stop("genplot should be logical (T or F)")
+  }
+  if(class(saveFile) != "logical"){
+    stop("saveFile should be logical (T or F)")
+  }
   rescaled.mean = r[[1]]
   rescaled.sd = r[[2]]
   if (!is.null(mask)) {
@@ -26,8 +32,10 @@ pdRaster <- function(r, unknown, mask = NULL, genplot = T, saveFile = T) {
     data <- unknown
   }
   n <- length(data[, 2])
-  dir.create("output")
-  dir.create("output/pdRaster_Gtif")
+  if(saveFile == T){
+    dir.create("output")
+    dir.create("output/pdRaster_Gtif")
+  }
   errorV <- getValues(rescaled.sd)
   meanV <- getValues(rescaled.mean)
   result <- NULL
