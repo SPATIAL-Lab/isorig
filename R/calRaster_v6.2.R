@@ -8,17 +8,14 @@ calRaster <- function(known, isoscape, mask = NULL, sdMethod = 2, interpMethod =
   if(is.na(proj4string(known))){
     stop("known must have coord. ref. of +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
   }
-    if (!is.null(mask)) {
+  if (!is.null(mask)) {
     if (class(mask) == "SpatialPolygonsDataFrame") {
       if (is.na(proj4string(mask))){
         stop("mask must have coord. ref.")
       } else {
         mask <- spTransform(mask, "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
       }
-
-      #s <- SpatialPointsDataFrame(coords = known[,1:2],
-      #                                            data = known, proj4string = CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
-      o <- over(s, mask)
+    o <- over(s, mask)
       known <- as.data.frame(known)
       known <- known[!is.na(o), ]
     } else {
@@ -27,9 +24,14 @@ calRaster <- function(known, isoscape, mask = NULL, sdMethod = 2, interpMethod =
   } else {
     known <- as.data.frame(known)
   }
-
   if(sdMethod != 1 & sdMethod != 2){
     stop("sdMethod should be 1 or 2. See help page for details")
+  }
+  if(class(genplot) != "logical"){
+    stop("genplot should be logical (T or F)")
+  }
+  if(class(savePDF) != "logical"){
+    stop("savePDF should be logical (T or F)")
   }
 
   nSample <- nrow(known)
@@ -43,7 +45,6 @@ calRaster <- function(known, isoscape, mask = NULL, sdMethod = 2, interpMethod =
     } else {
       isoscape <- projectRaster(isoscape, crs="+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
     }
-    #prediction <- isoscape
   } else {
     stop("isoscape should be a RasterStack or RastrBrick")
   }
@@ -92,8 +93,6 @@ calRaster <- function(known, isoscape, mask = NULL, sdMethod = 2, interpMethod =
     lm_eq <- substitute(italic(y) == a + b %.% italic(x)*","~~italic(R)^2~"="~r2,lm_coef)
     as.character(as.expression(lm_eq))
   }
-
-  #fit <- lm(y~x, data = xy)
   xmin = max(x)-0.4*(diff(range(x)))
   xmax = max(x)
   ymin = min(y)-0.25*diff(range(y))
