@@ -1,6 +1,5 @@
 \name{calRaster}
 \alias{calRaster}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 function to rescale isoscape
 }
@@ -8,7 +7,7 @@ function to rescale isoscape
 This function relies on known-origin tissue data to calibrate between isotope values in precipitation and those in the tissue using simple regression to rescale the precipitation raster into tissue values and generate mean and standard deviation rasters. This will output plots as pdf including regression model and rescaled isoscape mean and standard deviation in output folder under working directory.
 }
 \usage{
-calRaster(known, isoscape, mask = NULL, sdMethod = 2, interpMethod = 2, NA.value = NA, ignore.NA = T)
+calRaster(known, isoscape, mask = NULL, sdMethod = 2, interpMethod = 2, NA.value = NA, ignore.NA = T, genplot = T, savePDF =  T)
 }
 \arguments{
   \item{known}{
@@ -35,21 +34,18 @@ interpolated (bilinear interpolation) from the values of the four nearest raster
 \item{ignore.NA}{
  logical. (TRUE or FALSE [default]). If NA values are extracted from isoscape at the location of known-origin, do you want to ignore these values and proceed with calRaster function?
 }
+\item{genplot}{
+ logical. Plot the results (TRUE[default]) or not (FALSE)).
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
+\item{savePDF}{
+ logical. Save the results as pdf (TRUE[default]) or not (FALSE)).
 }
+}
+
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
 \item{isoscape.rescale }{Rescaled isoscape based on known origin data and isosape, two layer raster, one is mean the other is standard deviation which is a univeral value for the map from error of linear regression model.}
 \item{lm.data }{known origin data and correlated isoscape value used for linear regression model}
 \item{lm.model}{linear regression model}
-
-%% ...
-}
-\references{
-%% ~put references to the literature/web site here ~
 }
 
 \seealso{
