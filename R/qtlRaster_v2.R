@@ -33,15 +33,19 @@ qtlRaster <- function(pdR, threshold, thresholdType, genplot = T, pdf = F){
       right <-  k
       while((right-left) > 2){
         start <- round((left+right)/2)
-        sum <- sum(pdR.values[start:k])
-        if(sum > threshold){
+        total <- total(pdR.values[start:k])
+        if(total > threshold){
           left <- start
         }
-        if(sum < threshold){
+        if(total < threshold){
           right <- start
         }
       }
-      result[[i]] <- pdR[[i]] > pdR.values[start]
+      if(nlayers(pdR) == 1){
+        result <- pdR[[i]] > pdR.values[start]
+      }else{
+        result[[i]] <- pdR[[i]] > pdR.values[start]
+      }
     }
     title1 <- "by Cumulative Probability"
   }
@@ -50,7 +54,11 @@ qtlRaster <- function(pdR, threshold, thresholdType, genplot = T, pdf = F){
       pdR.values <- na.omit(getValues(pdR[[i]]))
       k <- length(pdR.values)
       cut <- sort(pdR.values)[round((1-threshold)*k)]
-      result[[i]] <- pdR[[i]]>cut
+      if(nlayers(pdR) == 1){
+        result <- pdR[[i]] > cut
+      }else{
+        result[[i]] <- pdR[[i]]>cut
+      }
     }
     title1 <- "by Area"
   }
