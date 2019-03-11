@@ -80,8 +80,8 @@ r1[[2]] <- r1[[2]]/2
 r2[[2]] <- r2[[2]]/2
 
 # seperate the hydrogen and oxygen isotope for the known-origin bird
-bird_d2h <- bird[1:20,c("Longitude", "Latitude", "d2H")]
-bird_d18o <- bird[1:20,c("Longitude", "Latitude", "d18O")]
+bird_d2h <- bird_isotope[1:20,c("Longitude", "Latitude", "d2H")]
+bird_d18o <- bird_isotope[1:20,c("Longitude", "Latitude", "d18O")]
 
 # run quality assessment based hydrogen isotope from precipitation and known-origin bird
 d2h_QA <- QA_2isotopes(isoscape1 = r1, isoscape2 = r2, known1 = bird_d2h, kown2 = bird_d18o, valiStation = 2, valiTime = 5, setSeed = T)
