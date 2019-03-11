@@ -57,19 +57,19 @@ QA <- function(isoscape, known, valiStation, valiTime, setSeed = T){
       }
     }
     
-    # # result is not right when j = 0.07 in above loop with no reason, so j = 0.07 is rerun
-    # j = 0.07
-    # qtl <- isOrigin::qtlRaster(pd, threshold = j, pdf = F, thresholdType = 1,genplot = F)
-    # prption_byProb[i, j*100] <- 0
-    # for(k in 1:nlayers(qtl)){
-    #   prption_byProb[i, j*100] <- prption_byProb[i, j*100] + 
-    #     raster::extract(qtl[[k]], data.frame(bird_val[,1],bird_val[,2])[k,])
-    #   precision[[i]][j*100, k] <- sum(na.omit(qtl[[k]][]))/Tarea # precision
-    # }
-    # for(k in 1:nlayers(qtl)){
-    #   precision[[i]][j*100, k] <- sum(na.omit(qtl[[k]][]))/Tarea # precision
-    # }
-    # 
+    # result is not right when j = 0.07 in above loop with no reason, so j = 0.07 is rerun
+    j = 0.07
+    qtl <- isOrigin::qtlRaster(pd, threshold = j, pdf = F, thresholdType = 1,genplot = F)
+    prption_byProb[i, j*100] <- 0
+    for(k in 1:nlayers(qtl)){
+      prption_byProb[i, j*100] <- prption_byProb[i, j*100] + 
+        raster::extract(qtl[[k]], data.frame(bird_val[,1],bird_val[,2])[k,])
+      precision[[i]][j*100, k] <- sum(na.omit(qtl[[k]][]))/Tarea # precision
+    }
+    for(k in 1:nlayers(qtl)){
+      precision[[i]][j*100, k] <- sum(na.omit(qtl[[k]][]))/Tarea # precision
+    }
+    
     # accuracy by checking top percentage by cumulative area
     for(n in xx){
       qtl <- isOrigin::qtlRaster(pd, threshold = n, pdf = F, thresholdType = 2,genplot = F)
@@ -79,14 +79,14 @@ QA <- function(isoscape, known, valiStation, valiTime, setSeed = T){
           raster::extract(qtl[[k]], data.frame(bird_val[,1],bird_val[,2])[k,])
       }
     }
-    # # result is not right when n = 0.07 in above loop with no reason, so n = 0.07 is rerun
-    # n = 0.07
-    # qtl <- isOrigin::qtlRaster(pd, threshold = n, pdf = F, thresholdType = 2,genplot = F)
-    # prption_byArea[i, n*100] <- 0
-    # for(k in 1:nlayers(qtl)){
-    #   prption_byArea[i, n*100] <- prption_byArea[i, n*100] + 
-    #     raster::extract(qtl[[k]], data.frame(bird_val[,1],bird_val[,2])[k,])
-    # }
+    # result is not right when n = 0.07 in above loop with no reason, so n = 0.07 is rerun
+    n = 0.07
+    qtl <- isOrigin::qtlRaster(pd, threshold = n, pdf = F, thresholdType = 2,genplot = F)
+    prption_byArea[i, n*100] <- 0
+    for(k in 1:nlayers(qtl)){
+      prption_byArea[i, n*100] <- prption_byArea[i, n*100] + 
+        raster::extract(qtl[[k]], data.frame(bird_val[,1],bird_val[,2])[k,])
+    }
   }
   
   random_prob_density=1/length(na.omit(getValues(isoscape[[1]]))) 
