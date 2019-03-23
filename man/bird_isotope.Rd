@@ -5,7 +5,7 @@
 data: bird_isotope
 }
 \description{
-Hydrogen and oxygen isotope of brid feather with known origin. Data is from Hobson et al., 2015.
+Hydrogen and oxygen isotope of bird feather with known origin. Data is from Hobson et al., 2015.
 }
 \usage{data("bird_isotope")}
 \format{
