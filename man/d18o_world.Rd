@@ -5,9 +5,9 @@
 data: d18o_world
 }
 \description{
-This file is the global growing season d2H precipitation isoscape available on waterisotopes.org and reported in Bowen et al., 2005.
+This file is the global growing season d18o precipitation isoscape available on waterisotopes.org and reported in Bowen et al., 2005.
 }
-\usage{data("d2h_world")}
+\usage{data("d18o_world")}
 \format{
   raster with two layers. The first layer is the mean and the second layer is the 2 standard deviation
 }
