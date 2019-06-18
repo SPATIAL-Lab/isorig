@@ -11,13 +11,13 @@ calRaster(known, isoscape, mask = NULL, sdMethod = 2, interpMethod = 2, NA.value
 }
 \arguments{
   \item{known}{
-SpatialPointsDataFrame. known-origin data that should contain one feature: tissue isotope value. This input must have a coordinate reference system of "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0". Optional known-origin data can be queried using the \code{\link[isOrigin]{knownOrig}} function.
+SpatialPointsDataFrame. known-origin data that should contain only one feature: tissue isotope value. The coordinate reference system must be the same as isoscape and mask. Optional known-origin data can be queried using the \code{\link[isOrigin]{knownOrig}} function.
 }
   \item{isoscape}{
- raster. isoscape raster
+ raster. isoscape raster with two layers. The first one is the mean and the second one is either standard deviation or 2 standard deviation. Its coordinate reference system must be the same as input of known and mask.
 }
   \item{mask}{
- SpatialPolygonsDataFrame. This mask will constrain the isoscape area. If this is not provided, default of mask of isoscape in this argument is used.
+ SpatialPolygonsDataFrame. This mask will constrain the isoscape area. If this is not provided, default of mask of isoscape in this argument is used. Its coordinate reference system must be the same as input of known and isoscape.
 }
   \item{sdMethod}{
  Uncertainty in the isoscape is standard deviation (1) or two standard deviation (2, default)
@@ -43,7 +43,7 @@ interpolated (bilinear interpolation) from the values of the four nearest raster
 }
 
 \value{
-\item{isoscape.rescale }{Rescaled isoscape based on known origin data and isosape, two layer raster, one is mean the other is standard deviation which is a univeral value for the map from error of linear regression model.}
+\item{isoscape.rescale }{Rescaled isoscape based on known origin data and isosape, two layer raster, one is mean the other is standard deviation which is a universal value for the map from error of linear regression model.}
 \item{lm.data }{known origin data and correlated isoscape value used for linear regression model}
 \item{lm.model}{linear regression model}
 }
