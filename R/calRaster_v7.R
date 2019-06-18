@@ -17,6 +17,8 @@ calRaster <- function (known, isoscape, mask = NULL, sdMethod = 2, interpMethod 
     stop("known must have valid coordinate reference system")
   } else if(proj4string(known) != proj4string(isoscape)){
     stop("known must have same coordinate reference system as isoscape")
+  } else if(ncol(known@data) != 1){
+    stop("known must include a 1-column data frame containing only the isotope values")
   }
 
   #check that mask is valid and has defined, correct CRS
@@ -51,7 +53,6 @@ calRaster <- function (known, isoscape, mask = NULL, sdMethod = 2, interpMethod 
 
   #get dimensions
   nSample <- nrow(known)
-  ncells <- ncell(isoscape)
 
   #create space for regression variables
   tissue.iso <- vector("numeric", length = nSample)
