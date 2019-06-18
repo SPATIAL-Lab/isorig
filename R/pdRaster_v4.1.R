@@ -17,7 +17,7 @@ pdRaster <- function(r, unknown, mask = NULL, genplot = T, saveFile = T) {
     if (is.na(proj4string(mask))){
         stop("mask must have coord. ref.")
       } else {
-        mask <- spTransform(mask, "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
+        mask <- spTransform(mask, proj4string(r))
       }
       rescaled.mean <- crop(rescaled.mean, mask)
       rescaled.sd <- crop(rescaled.sd, mask)
