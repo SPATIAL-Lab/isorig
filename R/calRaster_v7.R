@@ -17,8 +17,6 @@ calRaster <- function (known, isoscape, mask = NULL, sdMethod = 2, interpMethod 
     stop("known must have valid coordinate reference system")
   } else if(proj4string(known) != proj4string(isoscape)){
     stop("known must have same coordinate reference system as isoscape")
-  } else {
-    s <- known
   }
 
   #check that mask is valid and has defined, correct CRS
@@ -29,10 +27,7 @@ calRaster <- function (known, isoscape, mask = NULL, sdMethod = 2, interpMethod 
       } else if(proj4string(mask) != proj4string(isoscape)){
         stop("mask must have same coordinate reference system as known")
       }
-      o <- over(s, mask)
-      known <- as.data.frame(known)
-      known <- known[!is.na(o), ]
-      coordinates(known) <- c(2,3)
+      known <- known[mask,]
     } else {
       stop("mask should be a SpatialPolygonsDataFrame")
     }
