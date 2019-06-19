@@ -27,15 +27,8 @@ subOrigData <- function(taxon = NULL, group = NULL, mask = NULL) {
         mask <- spTransform(mask, "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
       }
       s <- data.frame(result@coords, result@data)
-
-      #s <- SpatialPointsDataFrame(coords = cbind(result$Longitude,
-      #                                           result$Latitude), data = result, proj4string = CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
       o <- over(result, mask)
-
-
       overlap <- s[!is.na(o), ]
-
-
     } else {
       stop("mask should be a SpatialPolygonsDataFrame")
     }
