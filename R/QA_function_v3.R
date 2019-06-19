@@ -26,9 +26,10 @@ QA <- function(isoscape, known, valiStation, valiTime, setSeed = T){
   if(setSeed == T){
     set.seed(100)
   }
+  
   rowLength <- nrow(known)
   val_stations <- sort(sample(1:rowLength,valiStation,replace = F))
-  for (i in 1:99){
+  for (i in 1:(valiTime-1)){
     val_stations <- rbind(val_stations,sort(sample(1:rowLength,valiStation,replace = F)))
   }
 
@@ -37,20 +38,16 @@ QA <- function(isoscape, known, valiStation, valiTime, setSeed = T){
   prption_byArea <- matrix(0, valiTime, 99) # accuracy by checking top percentage by area
   pd_bird_val <- matrix(0, valiTime, valiStation) # pd value for each validation location
   precision <- list() # precision
-  known <- as.data.frame(known)
+  
   for (i in 1:valiTime){
     bird_val <- known[val_stations[i,],]
     bird_model <- known[-val_stations[i,],]
-    bird_model_iso <- SpatialPointsDataFrame(cbind(bird_model[,1],bird_model[,2]), as.data.frame(bird_model[,3]))
-    bird_val_iso <- SpatialPointsDataFrame(cbind(bird_val[,1],bird_val[,2]), as.data.frame(bird_val[,3]))
-    crs(bird_model_iso) <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
-    crs(bird_val_iso) <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
-    rescale <- isOrigin::calRaster(bird_model_iso, isoscape, sdMethod = 1, genplot = F, savePDF = F)
-    pd <- isOrigin::pdRaster(rescale$isoscape.rescale, data.frame(rownames(bird_val),bird_val[,3]), genplot = F, saveFile = F)
+    rescale <- isOrigin::calRaster(bird_model, isoscape, sdMethod = 1, genplot = F, savePDF = F)
+    pd <- isOrigin::pdRaster(rescale$isoscape.rescale, data.frame(row.names(bird_val@data), bird_val@data[,1]), genplot = F, saveFile = F)
 
     # pd value for each validation location
     for(m in 1:nlayers(pd)){
-      pd_bird_val[i, m] <- extract(pd[[m]], data.frame(bird_val[,1],bird_val[,2])[m,])
+      pd_bird_val[i, m] <- extract(pd[[m]], bird_val[m,])
     }
 
     xx <- seq(0.01, 0.99, 0.01) ## 0.01 to 0.99
@@ -65,20 +62,11 @@ QA <- function(isoscape, known, valiStation, valiTime, setSeed = T){
       prption_byProb[i, j*100] <- 0
       for(k in 1:nlayers(qtl)){
         prption_byProb[i, j*100] <- prption_byProb[i, j*100] +
-          raster::extract(qtl[[k]], data.frame(bird_val[,1],bird_val[,2])[k,])
+          raster::extract(qtl[[k]], bird_val[k,])
         precision[[i]][j*100, k] <- sum(na.omit(qtl[[k]][]))/Tarea # precision
       }
     }
 
-    # result is not right when j = 0.07 in above loop with no reason, so j = 0.07 is rerun
-    j = 0.07
-    qtl <- isOrigin::qtlRaster(pd, threshold = j, pdf = F, thresholdType = 1,genplot = F)
-    prption_byProb[i, j*100] <- 0
-    for(k in 1:nlayers(qtl)){
-      prption_byProb[i, j*100] <- prption_byProb[i, j*100] +
-        raster::extract(qtl[[k]], data.frame(bird_val[,1],bird_val[,2])[k,])
-      precision[[i]][j*100, k] <- sum(na.omit(qtl[[k]][]))/Tarea # precision
-    }
     for(k in 1:nlayers(qtl)){
       precision[[i]][j*100, k] <- sum(na.omit(qtl[[k]][]))/Tarea # precision
     }
@@ -89,16 +77,8 @@ QA <- function(isoscape, known, valiStation, valiTime, setSeed = T){
       prption_byArea[i, n*100] <- 0
       for(k in 1:nlayers(qtl)){
         prption_byArea[i, n*100] <- prption_byArea[i, n*100] +
-          raster::extract(qtl[[k]], data.frame(bird_val[,1],bird_val[,2])[k,])
+          raster::extract(qtl[[k]], bird_val[k,])
       }
-    }
-    # result is not right when n = 0.07 in above loop with no reason, so n = 0.07 is rerun
-    n = 0.07
-    qtl <- isOrigin::qtlRaster(pd, threshold = n, pdf = F, thresholdType = 2,genplot = F)
-    prption_byArea[i, n*100] <- 0
-    for(k in 1:nlayers(qtl)){
-      prption_byArea[i, n*100] <- prption_byArea[i, n*100] +
-        raster::extract(qtl[[k]], data.frame(bird_val[,1],bird_val[,2])[k,])
     }
   }
 
