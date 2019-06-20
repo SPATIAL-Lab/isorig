@@ -47,7 +47,7 @@ QA <- function(isoscape, known, valiStation, valiTime, setSeed = T){
 
     # pd value for each validation location
     for(m in 1:nlayers(pd)){
-      pd_bird_val[i, m] <- extract(pd[[m]], bird_val[m,])
+      pd_bird_val[i, m] <- extract(pd[[m]], bird_val[m,], method = "bilinear")
     }
 
     xx <- seq(0.01, 0.99, 0.01) ## 0.01 to 0.99
@@ -62,7 +62,7 @@ QA <- function(isoscape, known, valiStation, valiTime, setSeed = T){
       prption_byProb[i, j*100] <- 0
       for(k in 1:nlayers(qtl)){
         prption_byProb[i, j*100] <- prption_byProb[i, j*100] +
-          raster::extract(qtl[[k]], bird_val[k,])
+          raster::extract(qtl[[k]], bird_val[k,], method = "bilinear")
         precision[[i]][j*100, k] <- sum(na.omit(qtl[[k]][]))/Tarea # precision
       }
     }
@@ -77,7 +77,7 @@ QA <- function(isoscape, known, valiStation, valiTime, setSeed = T){
       prption_byArea[i, n*100] <- 0
       for(k in 1:nlayers(qtl)){
         prption_byArea[i, n*100] <- prption_byArea[i, n*100] +
-          raster::extract(qtl[[k]], bird_val[k,])
+          raster::extract(qtl[[k]], bird_val[k,], method = "bilinear")
       }
     }
   }
