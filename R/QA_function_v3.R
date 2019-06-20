@@ -50,7 +50,7 @@ QA <- function(isoscape, known, valiStation, valiTime, setSeed = T){
       pd_bird_val[i, m] <- extract(pd[[m]], bird_val[m,], method = "bilinear")
     }
 
-    xx <- seq(0.01, 0.99, 0.01) ## 0.01 to 0.99
+    xx <- seq(1, 99, 1) ## 1 to 99
 
     # total area
     Tarea <- length(na.omit(pd[[1]][]))
@@ -58,25 +58,25 @@ QA <- function(isoscape, known, valiStation, valiTime, setSeed = T){
     # accuracy and precision by checking top percentage by cumulative prob.
     precision[[i]] <- matrix(0, 99, valiStation) # precision
     for(j in xx){
-      qtl <- isOrigin::qtlRaster(pd, threshold = j, pdf = F, thresholdType = 1,genplot = F)
-      prption_byProb[i, j*100] <- 0
+      qtl <- isOrigin::qtlRaster(pd, threshold = j/100, pdf = F, thresholdType = 1,genplot = F)
+      prption_byProb[i, j] <- 0
       for(k in 1:nlayers(qtl)){
-        prption_byProb[i, j*100] <- prption_byProb[i, j*100] +
+        prption_byProb[i, j] <- prption_byProb[i, j] +
           raster::extract(qtl[[k]], bird_val[k,], method = "bilinear")
-        precision[[i]][j*100, k] <- sum(na.omit(qtl[[k]][]))/Tarea # precision
+        precision[[i]][j, k] <- sum(na.omit(qtl[[k]][]))/Tarea # precision
       }
     }
 
     for(k in 1:nlayers(qtl)){
-      precision[[i]][j*100, k] <- sum(na.omit(qtl[[k]][]))/Tarea # precision
+      precision[[i]][j, k] <- sum(na.omit(qtl[[k]][]))/Tarea # precision
     }
 
     # accuracy by checking top percentage by cumulative area
     for(n in xx){
-      qtl <- isOrigin::qtlRaster(pd, threshold = n, pdf = F, thresholdType = 2,genplot = F)
-      prption_byArea[i, n*100] <- 0
+      qtl <- isOrigin::qtlRaster(pd, threshold = n/100, pdf = F, thresholdType = 2,genplot = F)
+      prption_byArea[i, n] <- 0
       for(k in 1:nlayers(qtl)){
-        prption_byArea[i, n*100] <- prption_byArea[i, n*100] +
+        prption_byArea[i, n] <- prption_byArea[i, n] +
           raster::extract(qtl[[k]], bird_val[k,], method = "bilinear")
       }
     }
