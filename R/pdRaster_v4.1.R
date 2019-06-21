@@ -1,4 +1,7 @@
 pdRaster <- function(r, unknown, mask = NULL, genplot = T, saveFile = T) {
+  if(class(r) == "rescale"){
+    r <- r$isoscape.rescale
+  }
   if(class(r) != "RasterStack" & class(r) != "RasterBrick"){
     stop("input isoscape should be RasterStack or RasterBrick with two layers (mean and standard deviation)")
   } else if(nlayers(r) != 2) {
