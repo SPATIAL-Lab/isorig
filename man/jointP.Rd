@@ -32,7 +32,7 @@ id = c("A", "B", "C", "D")
 d2H = c(-110, -180, -130, -150)
 un = data.frame(id,d2H)
 # assignment
-asn = pdRaster(r$isoscape.rescale,unknown=un,mask=naMap)
+asn = pdRaster(r,unknown=un,mask=naMap)
 # joint probability for individuals of common origin
 jointP(asn)
 }
