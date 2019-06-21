@@ -38,4 +38,3 @@ asn = pdRaster(r$isoscape.rescale,unknown=un,mask=naMap)
 # joint probability for individuals of common origin
 jointP(asn)
 }
-
