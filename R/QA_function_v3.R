@@ -43,7 +43,7 @@ QA <- function(isoscape, known, valiStation, valiTime, setSeed = T){
     bird_val <- known[val_stations[i,],]
     bird_model <- known[-val_stations[i,],]
     rescale <- isOrigin::calRaster(bird_model, isoscape, sdMethod = 1, genplot = F, savePDF = F)
-    pd <- isOrigin::pdRaster(rescale$isoscape.rescale, data.frame(row.names(bird_val@data), bird_val@data[,1]), genplot = F, saveFile = F)
+    pd <- isOrigin::pdRaster(rescale, data.frame(row.names(bird_val@data), bird_val@data[,1]), genplot = F, saveFile = F)
 
     # pd value for each validation location
     for(m in 1:nlayers(pd)){
