@@ -11,7 +11,7 @@ pdRaster(r, unknown, mask = NULL, genplot = T, saveFile = T)
 }
 \arguments{
   \item{r}{
-RasterStack or RasterBrick with two layers. The tissue-calibrated isoscape raster (mean and sd) obtained from rescale function, or user provides
+Output of \code{\link[isOrigin]{calRaster}}, or RasterStack or RasterBrick with two layers. The tissue-calibrated isoscape raster (mean and sd) obtained from rescale function, or user provides
 }
   \item{unknown}{
 data.frame. First column should be unique sample ID, and second column should be tissue d2H values of the individuals for which the assignments will be made.
@@ -41,5 +41,5 @@ r <- calRaster(known = d, isoscape = d2h_world, mask = naMap)
 id <- "smile"
 d2H <- -80
 un <- data.frame(id,d2H)
-asn <- pdRaster(r$isoscape.rescale, un,mask=naMap)
+asn <- pdRaster(r, un,mask=naMap)
 }
