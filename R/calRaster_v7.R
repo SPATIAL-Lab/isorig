@@ -180,12 +180,13 @@ calRaster <- function (known, isoscape, mask = NULL, sdMethod = 2, interpMethod 
   }
 
   #set names for return data object
-  names(xy) = c("isoscape.iso", "tissue.iso")
+  names(xy) <- c("isoscape.iso", "tissue.iso")
 
   #package results
-  result = list(isoscape.rescale = isoscape.rescale, lm.data = xy,
+  result <- list(isoscape.rescale = isoscape.rescale, lm.data = xy,
                 lm.model = lmResult)
-
+  class(result) <- "rescale"
+          
   #done
   return(result)
 }
