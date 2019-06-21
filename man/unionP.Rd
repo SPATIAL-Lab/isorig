@@ -34,11 +34,7 @@ id = c("A", "B", "C", "D")
 d2H = c(-110, -180, -130, -150)
 un = data.frame(id,d2H)
 # assignment
-asn = pdRaster(r$isoscape.rescale,unknown=un,mask=naMap)
+asn = pdRaster(r,unknown=un,mask=naMap)
 # Probability that at least one individual came from the location (union of probabilities)
 unionP(asn)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
