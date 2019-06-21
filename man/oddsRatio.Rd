@@ -36,7 +36,7 @@ id = c("A", "B", "C", "D")
 d2H = c(-110, -180, -130, -150)
 un = data.frame(id,d2H)
 # assignment
-asn = pdRaster(r$isoscape.rescale,unknown=un,mask=naMap)
+asn = pdRaster(r,unknown=un,mask=naMap)
 
 # Create SpatialPolygons with two polygons
 p1 <- c(-100,60,-100,65,-110,65,-110,60,-100,60)
