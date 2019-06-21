@@ -1,6 +1,5 @@
 \name{jointP}
 \alias{jointP}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 jointP
 }
@@ -10,7 +9,6 @@ Joint probability for individuals of common origin (product of probabilities)
 \usage{
 jointP(pdR)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{pdR}{
 probability density map which must be raster or RasterLayer
