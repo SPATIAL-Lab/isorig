@@ -33,7 +33,7 @@ d2H = seq(-160, -80, by=80/25)
 un = data.frame(id,d2H)
 
 ### Assignment for unknown-origin examples
-asn = pdRaster(r$isoscape.rescale,unknown=un,mask=naMap)
+asn = pdRaster(r,unknown=un,mask=naMap)
 
 ### Create SpatialPolygons with two polygons
 p1 <- c(-100,60,-100,65,-110,65,-110,60,-100,60)
