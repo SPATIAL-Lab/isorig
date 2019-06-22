@@ -1,5 +1,5 @@
 calRaster <- function (known, isoscape, mask = NULL, sdMethod = 2, interpMethod = 2,
-          NA.value = NA, ignore.NA = TRUE, genplot = TRUE, savePDF = TRUE)
+          NA.value = NA, ignore.NA = TRUE, genplot = TRUE, savePDF = TRUE, verboseLM = T)
 {
   #check that isoscape is valid and has defined CRS
   if (class(isoscape) == "RasterStack" | class(isoscape) == "RasterBrick") {
@@ -92,10 +92,12 @@ calRaster <- function (known, isoscape, mask = NULL, sdMethod = 2, interpMethod 
   lmResult <- lm(tissue.iso ~ isoscape.iso[, 1])
 
   #output
+  if (verbose){
   cat("\n\n---------------------------------------------------------------------------------\n")
   cat("rescale function uses linear regression model, the summary of this model is:\n")
   cat("---------------------------------------------------------------------------------\n")
   print(summary(lmResult))
+  }
 
   #pull slope and intercept
   intercept <- as.numeric(coef(lmResult)[1])
