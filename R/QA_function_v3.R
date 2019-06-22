@@ -39,15 +39,18 @@ QA <- function(isoscape, known, valiStation, valiTime, setSeed = T){
   pd_bird_val <- matrix(0, valiTime, valiStation) # pd value for each validation location
   precision <- list() # precision
   
+  # create progress bar
+  pb <- txtProgressBar(min = 0, max = valiTime, style = 3)
+  
   for (i in 1:valiTime){
     bird_val <- known[val_stations[i,],]
     bird_model <- known[-val_stations[i,],]
-    rescale <- isOrigin::calRaster(bird_model, isoscape, sdMethod = 1, genplot = F, savePDF = F)
+    rescale <- isOrigin::calRaster(bird_model, isoscape, sdMethod = 1, genplot = F, savePDF = F, verboseLM = F)
     pd <- isOrigin::pdRaster(rescale, data.frame(row.names(bird_val@data), bird_val@data[,1]), genplot = F, saveFile = F)
 
     # pd value for each validation location
     for(m in 1:nlayers(pd)){
-      pd_bird_val[i, m] <- extract(pd[[m]], bird_val[m,], method = "bilinear")
+      pd_bird_val[i, m] <- raster::extract(pd[[m]], bird_val[m,], method = "bilinear")
     }
 
     xx <- seq(1, 99, 1) ## 1 to 99
@@ -80,6 +83,10 @@ QA <- function(isoscape, known, valiStation, valiTime, setSeed = T){
           raster::extract(qtl[[k]], bird_val[k,], method = "bilinear")
       }
     }
+   
+    #update progress bar
+    Sys.sleep(0.1)
+    setTxtProgressBar(pb, i)
   }
 
   random_prob_density=1/length(na.omit(getValues(isoscape[[1]])))
