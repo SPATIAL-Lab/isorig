@@ -92,7 +92,7 @@ calRaster <- function (known, isoscape, mask = NULL, sdMethod = 2, interpMethod 
   lmResult <- lm(tissue.iso ~ isoscape.iso[, 1])
 
   #output
-  if (verbose){
+  if (verboseLM){
   cat("\n\n---------------------------------------------------------------------------------\n")
   cat("rescale function uses linear regression model, the summary of this model is:\n")
   cat("---------------------------------------------------------------------------------\n")
