@@ -1,4 +1,4 @@
-pdRaster <- function(r, unknown, mask = NULL, genplot = T, saveFile = T) {
+pdRaster <- function(r, prior = NULL, unknown, mask = NULL, genplot = T, saveFile = T) {
   if(class(r) == "rescale"){
     r <- r$isoscape.rescale
   }
@@ -7,6 +7,14 @@ pdRaster <- function(r, unknown, mask = NULL, genplot = T, saveFile = T) {
   } else if(nlayers(r) != 2) {
     stop("input isoscape should be RasterStack or RasterBrick with two layers (mean and standard deviation)")
   }
+  if(!is.null(prior)){
+    if(class(prior) != "RasterLayer"){
+      stop("prior should be a raster with one layer")
+    } else {
+      compareRaster(r[[1]], prior)
+    }
+  }
+  
   if(class(genplot) != "logical"){
     stop("genplot should be logical (T or F)")
   }
@@ -47,6 +55,9 @@ pdRaster <- function(r, unknown, mask = NULL, genplot = T, saveFile = T) {
     indv.data <- data[i, ]
     indv.id <- indv.data[1, 1]
     assign <- dnorm(indv.data[1, 2], mean = meanV, sd = errorV)
+    if(!is.null(prior)){
+      assign <- assign*getValues(prior)
+    }
     assign.norm <- assign/sum(assign[!is.na(assign)])
     assign.norm <- setValues(rescaled.mean,assign.norm)
     if (i == 1){

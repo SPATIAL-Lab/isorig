@@ -7,13 +7,16 @@ assign function
 Assign unknown tissue isotope to calibrated precipitation isoscape.
 }
 \usage{
-pdRaster(r, unknown, mask = NULL, genplot = T, saveFile = T)
+pdRaster(r, prior =NULL, unknown, mask = NULL, genplot = T, saveFile = T)
 }
 \arguments{
-  \item{r}{
+\item{r}{
 Output of \code{\link[isOrigin]{calRaster}}, or RasterStack or RasterBrick with two layers. The tissue-calibrated isoscape raster (mean and sd) obtained from rescale function, or user provides
 }
-  \item{unknown}{
+\item{prior}{
+raster. This is an optional raster layer with prior probabilities, which should has the same projection, resolution and extent as the isoscape raster.
+}
+\item{unknown}{
 data.frame. First column should be unique sample ID, and second column should be tissue d2H values of the individuals for which the assignments will be made.
 }
 \item{mask}{
@@ -41,5 +44,5 @@ r <- calRaster(known = d, isoscape = d2h_world, mask = naMap)
 id <- "smile"
 d2H <- -80
 un <- data.frame(id,d2H)
-asn <- pdRaster(r, un,mask=naMap)
+asn <- pdRaster(r, unknown = un, mask=naMap)
 }
