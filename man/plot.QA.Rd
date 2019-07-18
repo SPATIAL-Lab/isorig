@@ -7,12 +7,15 @@ PLot the quality assessment of the geographic assignment.
 Plot the output from QA results. Accuracy, precision and probability density of validation stations.
 }
 \usage{
-plot.QA(x)
+plot.QA(obj, savePDF = FALSE)
 }
 \arguments{
-  \item{x}{
-Class of QA which is returned from QA and QA_2isotope functions.
-}
+  \item{obj}{
+    Class of QA which is returned from QA functions.
+  }
+  \item{savePDF}{
+    Logic. Do you want to save the plot as PDF (TRUE) or not (FALSE [default]).
+  }
 }
 \references{
 Ma et al., 2019
