@@ -4,7 +4,7 @@
 PLot the quality assessment of the geographic assignment.
 }
 \description{
-Plot the output from QA and QA_2isotope results. Accuracy, precision and probability density of validation stations.
+Plot the output from QA results. Accuracy, precision and probability density of validation stations.
 }
 \usage{
 plot.QA(x)
