@@ -14,7 +14,7 @@ plot.QA(obj, savePDF = FALSE)
     Class of QA which is returned from QA functions.
   }
   \item{savePDF}{
-    Logic. Do you want to save the plot as PDF (TRUE) or not (FALSE [default]).
+    logical. Save the plot as PDF (TRUE) or not (FALSE [default]).
   }
 }
 \references{
@@ -26,7 +26,7 @@ Vander Zanden, H.B., Wunder, M.B., Hobson, K.A., Van Wilgenburg, S.L., Wassenaar
 \seealso{
 \code{\link[ggplot2]{ggplot}}
 \code{\link[isOrigin]{QA}}
-\code{\link[isOrigin]{QA_2isotopes}}
+}
 }
 \examples{
 # load data
