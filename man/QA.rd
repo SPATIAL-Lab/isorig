@@ -55,7 +55,6 @@ Vander Zanden, H.B., Wunder, M.B., Hobson, K.A., Van Wilgenburg, S.L., Wassenaar
 }
 
 \seealso{
-\code{\link[isOrigin]{QA_2isotopes}}
 \code{\link[isOrigin]{plot.QA}}
 }
 
