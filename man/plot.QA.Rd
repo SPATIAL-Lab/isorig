@@ -11,7 +11,7 @@ plot.QA(obj, savePDF = FALSE)
 }
 \arguments{
   \item{obj}{
-    Class of QA which is returned from QA functions.
+    Either a single QA object or a list of QA objects
   }
   \item{savePDF}{
     logical. Save the plot as PDF (TRUE) or not (FALSE [default]).
