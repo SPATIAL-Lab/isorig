@@ -7,7 +7,7 @@ function to rescale isoscape
 This function relies on known-origin tissue data to calibrate between isotope values in precipitation and those in the tissue using simple regression to rescale the precipitation raster into tissue values and generate mean and standard deviation rasters. This will output plots as pdf including regression model and rescaled isoscape mean and standard deviation in output folder under working directory.
 }
 \usage{
-calRaster(known, isoscape, mask = NULL, sdMethod = 2, interpMethod = 2, NA.value = NA, ignore.NA = T, genplot = T, savePDF =  T)
+calRaster(known, isoscape, mask = NULL, sdMethod = 2, interpMethod = 2, NA.value = NA, ignore.NA = T, genplot = T, savePDF =  T, verboseLM = T)
 }
 \arguments{
   \item{known}{
@@ -35,10 +35,13 @@ interpolated (bilinear interpolation) from the values of the four nearest raster
  logical. (TRUE or FALSE [default]). If NA values are extracted from isoscape at the location of known-origin, do you want to ignore these values and proceed with calRaster function?
 }
 \item{genplot}{
- logical. Plot the results (TRUE[default]) or not (FALSE)).
+ logical. Plot the results (TRUE [default]) or not (FALSE)).
 }
 \item{savePDF}{
- logical. Save the results as pdf (TRUE[default]) or not (FALSE)).
+ logical. Save the results as pdf (TRUE [default]) or not (FALSE)).
+}
+\item{verboseLM}{
+ logical. Print out the linear regression results (TRUE [default]) or not (FALSE)).
 }
 }
 
