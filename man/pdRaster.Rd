@@ -26,7 +26,7 @@ SpatialPolygonsDataFrame. This mask will constrain the assignment area. If this 
 logical. Generate summary plots in R (TRUE [default]) or not (FALSE).
 }
 \item{saveFile}{
-logical. Save the results (TRUE[default]) or not (FALSE)).
+logical. Save the results (TRUE [default]) or not (FALSE)).
 }
 }
 \value{
