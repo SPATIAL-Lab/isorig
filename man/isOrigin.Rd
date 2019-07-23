@@ -91,4 +91,3 @@ d2h_QA <- QA(isoscape = r, known = bird_d2h, valiStation = 2,
 
 # plot the QA result
 plot(d2h_QA)
-}
