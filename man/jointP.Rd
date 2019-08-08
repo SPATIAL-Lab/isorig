@@ -16,7 +16,7 @@ probability density map which must be raster or RasterLayer
 }
 
 \examples{
-# load North America SpatialPolygonsDataFrame data in isOrigin package
+# load North America SpatialPolygonsDataFrame data in assignR package
 data("naMap")
 data(d2h_world)
 d = subOrigData(taxon = c("Homo sapiens"), mask = naMap)
