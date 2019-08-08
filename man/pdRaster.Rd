@@ -11,7 +11,7 @@ pdRaster(r, prior =NULL, unknown, mask = NULL, genplot = T, saveFile = T)
 }
 \arguments{
 \item{r}{
-Output of \code{\link[isOrigin]{calRaster}}, or RasterStack or RasterBrick with two layers. The tissue-calibrated isoscape raster (mean and sd) obtained from rescale function, or user provides
+Output of \code{\link[assignR]{calRaster}}, or RasterStack or RasterBrick with two layers. The tissue-calibrated isoscape raster (mean and sd) obtained from rescale function, or user provides
 }
 \item{prior}{
 raster. This is an optional raster layer with prior probabilities, which should has the same projection, resolution and extent as the isoscape raster.
@@ -34,7 +34,7 @@ returns an object of class RasterStack or RasterLayer that includes a probabilit
 }
 
 \seealso{
-\code{\link[isOrigin]{calRaster}}
+\code{\link[assignR]{calRaster}}
 }
 \examples{
 data(naMap)
