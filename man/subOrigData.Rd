@@ -1,6 +1,5 @@
 \name{subOrigData}
 \alias{subOrigData}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 subOrigData function
 }
@@ -12,10 +11,10 @@ subOrigData(taxon = NULL, group = NULL, mask = NULL)
 }
 \arguments{
   \item{taxon}{
-one string or a string vector. Select species names of known origin data. Details can be seen in \code{\link[isOrigin]{knownOrig}}
+one string or a string vector. Select species names of known origin data. Details can be seen in \code{\link[assignR]{knownOrig}}
 }
   \item{group}{
-one string or a string vector. Select group names of known origin data. Details can be seen in \code{\link[isOrigin]{knownOrig}}
+one string or a string vector. Select group names of known origin data. Details can be seen in \code{\link[assignR]{knownOrig}}
 }
   \item{mask}{
 SpatialPolygonsDataFrame. This mask will constrain the investigated area. If this is not provided, default of whole world is used.
@@ -27,15 +26,7 @@ SpatialPolygonsDataFrame. This mask will constrain the investigated area. If thi
 \value{
 Data selected as SpatialPointsdataFrame from known-origin data from this package will be returned. It has one feature: d2H, which is ready to be fed into calRaster function.
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
-\author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
-}
+
 
 \examples{
 ## WITHOUT mask
@@ -56,7 +47,6 @@ d4 = subOrigData(taxon = "Homo sapiens")
 summary(d4)
 
 ## WITH mask
-data(naMap) # load North America SpatialPolygonsDataFrame data in isOrigin package
 d5 = subOrigData(taxon = "Turdus merula", mask = naMap) # No isotope data found in mask you choose!
 d6 = subOrigData(taxon = c("Danaus plexippus", "Setophaga ruticilla", "Turdus migratorius"), mask = naMap)
 d7 = subOrigData(group = "human", mask = naMap)
