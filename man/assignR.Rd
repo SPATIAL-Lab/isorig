@@ -1,11 +1,11 @@
-\name{isOrigin}
-\alias{isOrigin}
+\name{assignR}
+\alias{assignR}
 
-\title{isOrigin}
+\title{assignR}
 
 \examples{
 #### Load library ####
-library(isOrigin)
+library(assignR)
 
 #### Load North America mask ####
 data("naMap")
