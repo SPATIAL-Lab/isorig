@@ -25,7 +25,7 @@ Vander Zanden, H.B., Wunder, M.B., Hobson, K.A., Van Wilgenburg, S.L., Wassenaar
 
 \seealso{
 \code{\link[ggplot2]{ggplot}}
-\code{\link[isOrigin]{QA}}
+\code{\link[assignR]{QA}}
 }
 
 \examples{
