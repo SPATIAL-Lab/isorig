@@ -12,7 +12,7 @@ This dataset consists of hydrogen isotope values of human hair, insect chitin an
   A SpatialPointsDataFrame
 }
 \seealso{
-\code{\link[isOrigin]{subOrigData}}
+\code{\link[assignR]{subOrigData}}
 }
 \examples{
 library(maptools)
