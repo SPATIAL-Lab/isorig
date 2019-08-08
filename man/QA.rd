@@ -55,7 +55,7 @@ Vander Zanden, H.B., Wunder, M.B., Hobson, K.A., Van Wilgenburg, S.L., Wassenaar
 }
 
 \seealso{
-\code{\link[isOrigin]{plot.QA}}
+\code{\link[assignR]{plot.QA}}
 }
 
 \examples{
