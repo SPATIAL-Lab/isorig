@@ -11,7 +11,7 @@ calRaster(known, isoscape, mask = NULL, sdMethod = 2, interpMethod = 2, NA.value
 }
 \arguments{
   \item{known}{
-SpatialPointsDataFrame. known-origin data that should contain only one feature: tissue isotope value. The coordinate reference system must be the same as isoscape and mask. Optional known-origin data can be queried using the \code{\link[isOrigin]{knownOrig}} function.
+SpatialPointsDataFrame. known-origin data that should contain only one feature: tissue isotope value. The coordinate reference system must be the same as isoscape and mask. Optional known-origin data can be queried using the \code{\link[assignR]{knownOrig}} function.
 }
   \item{isoscape}{
  raster. isoscape raster with two layers. The first one is the mean and the second one is either standard deviation or 2 standard deviation. Its coordinate reference system must be the same as input of known and mask.
@@ -52,7 +52,7 @@ interpolated (bilinear interpolation) from the values of the four nearest raster
 }
 
 \seealso{
-\code{\link[isOrigin]{pdRaster}}
+\code{\link[assignR]{pdRaster}}
 }
 \examples{
 data("naMap")
