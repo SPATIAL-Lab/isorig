@@ -27,7 +27,7 @@ Vander Zanden, H.B., Wunder, M.B., Hobson, K.A., Van Wilgenburg, S.L., Wassenaar
 \code{\link[ggplot2]{ggplot}}
 \code{\link[isOrigin]{QA}}
 }
-}
+
 \examples{
 # load data
 data(naMap) # North America 
